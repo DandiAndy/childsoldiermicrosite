@@ -2,15 +2,15 @@ angular.module('ChildSoldier', ['ngSanitize'])
 
     .controller('MainCtrl', function ($scope, $http) {
 
-        $http.get('http://127.0.0.1:8000/countries/').success(function(data) {
+        $http.get('http://childsoldiers-api.herokuapp.com/countries/').success(function(data) {
             $scope.countries = data;
         });
 
-        $http.get('http://127.0.0.1:8000/countryreports/').success(function(data) {
+        $http.get('http://childsoldiers-api.herokuapp.com/countryreports/').success(function(data) {
             $scope.reports = data;
         });
 
-        $http.get('http://127.0.0.1:8000/sections/').success(function(data) {
+        $http.get('http://childsoldiers-api.herokuapp.com//sections/').success(function(data) {
             $scope.sections = data;
         });
 
