@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="assets/css/animations.css">
     </head>
 
+    <!-- This is used for the nested sections -->
     <script type="text/ng-template"  id="section_renderer">
         <div><a ng-click="selectSection(section)">{{section.title}}</a></div>
         <div ng-if="openSections.indexOf(section.id) != -1">

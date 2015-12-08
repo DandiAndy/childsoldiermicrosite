@@ -2,6 +2,7 @@ angular.module('ChildSoldier', ['ngSanitize'])
 
     .controller('MainCtrl', function ($scope, $http) {
 
+        <!-- Retrieve information from API, update this path if neccesary in future -->
         $http.get('http://childsoldiers-api.herokuapp.com/countries/').success(function(data) {
             $scope.countries = data;
         });
