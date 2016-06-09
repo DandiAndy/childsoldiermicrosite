@@ -10,6 +10,7 @@
 
         <link rel="stylesheet" href="assets/css/childsoldier.css">
         <link rel="stylesheet" href="assets/css/animations.css">
+        <link rel="stylesheet" href="assets/css/map.css">
     </head>
 
     <!-- This is used for the nested sections -->
@@ -23,31 +24,34 @@
             </div>
     </script>
 
-    <body ng-controller="MainCtrl">
+    <body ng-controller="MainCtrl as vm">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-3 col-md-2 sidebar">
-                    <a ng-click="setCurrentCountry(null)"><img class="logo" src="http://i.imgur.com/g46lyl6.png"></a>
+                    <a ng-click="vm.setCurrentCountry(null)"><img class="logo" src="http://i.imgur.com/g46lyl6.png"></a>
                     <ul class="nav nav-sidebar">
-                        <li ng-repeat="country in countries" ng-class="{'active':isCurrentCountry(country)}">
-                            <a ng-click="setCurrentCountry(country)">
+                        <li ng-repeat="country in vm.countries" ng-class="{'active':vm.isCurrentCountry(country)}">
+                            <a ng-click="vm.setCurrentCountry(country)">
                                 {{country.name}}
                             </a>
                         </li>
                     </ul>
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                    <div ng-class="{active: isSelectedReport(report.id)}"
-                         ng-show="currentCountry != null"
-                         ng-repeat="report in reports | filter:{country:currentCountry.id}">
-                        <a ng-click="setCurrentReport(report)" target="_blank">{{report.title}} - {{report.subtitle}}</a>
+                    <div ng-class="{active: vm.isSelectedReport(report.id)}"
+                         ng-show="vm.currentCountry != null"
+                         ng-repeat="report in vm.reports | filter:{country:vm.currentCountry.id}">
+                        <a ng-click="vm.setCurrentReport(report)" target="_blank">{{report.title}} - {{report.subtitle}}</a>
                     </div>
                     <hr/>
-                    <div ng-repeat="section in sections | filter:{report:currentReport.id}"
-                         ng-show="currentReport != null"
+                    <div ng-repeat="section in vm.sections | filter:{report:vm.currentReport.id}"
+                         ng-show="vm.currentReport != null"
                          ng-include="'section_renderer'">
                     </div>
-
+                    <div class="angular-google-map-container"
+                        ng-show="vm.mapVisible">
+                        <ui-gmap-google-map center='vm.map.center' zoom='vm.map.zoom' control='vm.myMap'></ui-gmap-google-map>
+                    </div>
                 </div>
             </div>
         </div>
@@ -57,7 +61,10 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-sanitize.js"></script>
+        <script src="https://rawgit.com/nmccready/angular-simple-logger/master/dist/angular-simple-logger.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/angular-google-maps/2.3.3/angular-google-maps.js"></script>
 
         <script src="app/childsoldier.js"></script>
+
     </body>
 </html>
