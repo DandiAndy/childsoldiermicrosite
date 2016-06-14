@@ -1,14 +1,18 @@
-var app = angular.module('ChildSoldier', ['ngSanitize', 'uiGmapgoogle-maps']);
+var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive']);
 
-    app.config(function(uiGmapGoogleMapApiProvider) {
-        uiGmapGoogleMapApiProvider.configure({
-            key: 'AIzaSyAHBFelgsXR2n2QyoDQHcKbyXYLTM72d98',
-            v: '3.25', //defaults to latest 3.X anyhow
-            libraries: 'weather,geometry,visualization'
+
+    app.controller('MapCtrl', ["$scope", function($scope){
+        angular.extend($scope, {
+            syria: {
+                lat: 34.8021,
+                lng: 38.9968,
+                zoom: 7
+            }
         });
-    });
+    }]);
 
-    app.controller('MainCtrl', function ($scope, $timeout, $http, uiGmapGoogleMapApi) {
+    app.controller('MainCtrl', function ($scope, $timeout, $http) {
+
 
         var vm = this; // 'view model'; controller
 
@@ -26,14 +30,9 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'uiGmapgoogle-maps']);
         vm.currentReport = null;
 
         //init myMap for control of map refresh and default position.
-        vm.myMap = {};
         vm.mapVisible = false;
-        vm.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
 
         //SCOPE FUNCTIONS
-        vm.refreshMap = function(){
-            return vm.myMap.refresh();
-        };
 
         vm.setMapVisible = function(visible){
             vm.mapVisible = visible;
@@ -79,21 +78,6 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'uiGmapgoogle-maps']);
 
         $http.get('http://childsoldiers-api.herokuapp.com//sections/').success(function(data) {
             vm.sections = data;
-        });
-
-        //The google API may need future promises:
-        //uiGmapGoogleMapApi.then(function(map) {
-
-        //});
-
-        // A watch that makes sure that the map is updated when open.
-        // Otherwise there will be a grey box instead of a map.
-        $scope.$watch('vm.mapVisible', function(newVal, oldVal){
-           if(newVal === true && newVal !== oldVal) {
-                $timeout(function(){
-                    vm.refreshMap(vm.map.center);
-                }, 300);
-           }
         });
 
         
