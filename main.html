@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="assets/css/childsoldier.css">
         <link rel="stylesheet" href="assets/css/animations.css">
         <link rel="stylesheet" href="assets/css/map.css">
+        <link rel="stylesheet" href="assets/css/legend.css">
     </head>
 
     <!-- This is used for the nested sections -->
@@ -51,6 +52,19 @@
                     <div class="angular-google-map-container"
                         ng-show="vm.mapVisible">
                         <ui-gmap-google-map center='vm.map.center' zoom='vm.map.zoom' control='vm.myMap'></ui-gmap-google-map>
+                    </div>
+                    <div class="color-legend" style="margin-top:50px;">
+                        <div class="legend-title">Incidents Color legend</div>
+                        <div class="legend-scale">
+                            <ul class="legend-labels">
+                            	<li><span style="background:#ff0000;"></span>Killing and maiming of children</li>
+                            	<li><span style="background:#e2552b;"></span>Recruitment or use of children as soldiers</li>
+                            	<li><span style="background:#ff8428;"></span>Sexual violence against children</li>
+                              <li><span style="background:#ffa726;"></span>Attacks against schools or hospitals</li>
+                              <li><span style="background:#ffb72b;"></span>Denial of humanitarian access for children</li>
+                              <li><span style="background:#ffa81f;"></span>Abduction of children</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
