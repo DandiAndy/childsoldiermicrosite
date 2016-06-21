@@ -2,11 +2,59 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive']);
 
 
     app.controller('MapCtrl', ["$scope", function($scope){
+        var local_icons = {
+            default_icon: {},
+            killings_icon: {
+                iconUrl:    'assets/img/killing_marker.png',
+                iconSize:   [38, 95],
+                iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+                popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+            },
+            abductions_icon: {
+                iconUrl:    'assets/img/abduction_marker.png',
+                iconSize:   [38, 95],
+                iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+                popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+            }
+
+        };
+
+        angular.extend($scope, {
+            icons: local_icons
+        });
+
         angular.extend($scope, {
             syria: {
                 lat: 34.8021,
                 lng: 38.9968,
                 zoom: 7
+            },
+            markers: {
+                m1: {
+                    lat: 36.8021,
+                    lng: 36.9968,
+                    message: "I'm a static marker",
+                    icon: local_icons.killings_icon
+                },
+                m2: {
+                    lat: 35,
+                    lng: 36,
+                    message: "I'm a static marker",
+                    icon: local_icons.killings_icon
+                },
+                m3: {
+                    lat: 34,
+                    lng: 39,
+                    message: "I'm a static marker",
+                    icon: local_icons.abductions_icon
+                },
+                m4: {
+                    lat: 35.8021,
+                    lng: 42.9968,
+                    message: "I'm a static marker",
+                    icon: local_icons.abductions_icon
+                }
+
             }
         });
     }]);
