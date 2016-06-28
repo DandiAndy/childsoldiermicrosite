@@ -13,6 +13,8 @@
         <link rel="stylesheet" href="assets/css/animations.css">
         <link rel="stylesheet" href="assets/css/map.css">
         <link rel="stylesheet" href="assets/css/legend.css">
+
+        <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
     </head>
 
     <!-- This is used for the nested sections -->
@@ -52,53 +54,10 @@
                     </div>
                     <div ng-controller="MapCtrl as map"
                         ng-show="vm.mapVisible">
-                        <!--Div of the map, with the script that loads icon objects and adds them to the map-->
                         <leaflet class="map" center="syria" markers="markers"></leaflet>
-
-                        <!--Non-angular solution for map-->
-                        <!--<script>-->
-
-                            <!--&lt;!&ndash;Instantiating icon objects using their respective png images&ndash;&gt;-->
-                            <!--var redIcon = L.icon({iconUrl: 'assets/img/killing_marker.png'});-->
-                            <!--var yellowIcon = L.icon({iconUrl: 'assets/img/abduction_marker.png'});-->
-
-                            <!--&lt;!&ndash;Test version of possible Hotspots which will be pulled from DB&ndash;&gt;-->
-                            <!--var hotspotsKillings = [-->
-                                <!--[36.8021, 36.9968],-->
-                                <!--[35, 36]-->
-                            <!--];-->
-                            <!--var hotspotsAbductions = [-->
-                                <!--[34, 39],-->
-                                <!--[35.8021, 42.9968],-->
-                            <!--];-->
-
-                            <!--&lt;!&ndash;Setting up of the map&ndash;&gt;-->
-                            <!--var map = L.map('map').setView([34.8021, 38.9968], 7);-->
-                            <!--mapLink =-->
-                                    <!--'<a href="http://openstreetmap.org">OpenStreetMap</a>';-->
-                            <!--L.tileLayer(-->
-                                    <!--'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {-->
-                                        <!--attribution: '&copy; ' + mapLink + ' Contributors',-->
-                                        <!--maxZoom: 18,-->
-                                    <!--}).addTo(map);-->
-
-                            <!--&lt;!&ndash;Iterates through the arrays of hotspots and adds the respective markers&ndash;&gt;-->
-                            <!--for (var i = 0; i < hotspotsKillings.length; i++) {-->
-                                <!--marker = new L.marker([hotspotsKillings[i][0],hotspotsKillings[i][1]], {icon:redIcon})-->
-                                        <!--.bindPopup(hotspotsKillings[i][0])-->
-                                        <!--.addTo(map);-->
-                            <!--}-->
-
-                            <!--for (var i = 0; i < hotspotsAbductions.length; i++) {-->
-                                <!--marker = new L.marker([hotspotsAbductions[i][0],hotspotsAbductions[i][1]], {icon:yellowIcon})-->
-                                        <!--.bindPopup(hotspotsAbductions[i][0])-->
-                                        <!--.addTo(map);-->
-                            <!--}-->
-
-                        <!--</script>-->
                     </div>
-                    <div class="color-legend" style="margin-top:50px;">
-                        <div class="legend-title">Incidents Color legend</div>
+                    <div class="legend-filter" style="margin-top:50px;">
+                        <div class="legend-title">Incidents Color Legend</div>
                         <div class="legend-scale">
                             <ul class="legend-labels">
                             	<li><span style="background:#ff0000;"></span>Killing and maiming of children</li>
@@ -110,16 +69,32 @@
                             </ul>
                         </div>
                     </div>
+                    <div ng-controller="DateCtrl" class="legend-filter">
+                        <md-content>
+                            <div class="legend-title">Date Filter</div>
+                            <form name="DateForm">
+                                <label>Starting Date:</label>
+                                <md-datepicker ng-model="startingDate" md-placeholder="Enter Starting Date"></md-datepicker>
+                                <br>
+                                <label>Ending Date:</label>
+                                <md-datepicker ng-model="endingDate" md-placeholder="Enter Ending Date"></md-datepicker>
+                            </form>
+                        </md-content>
+                    </div>
                 </div>
             </div>
         </div>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-sanitize.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
         <script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-leaflet-directive/0.10.0/angular-leaflet-directive.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
 
 
         <script src="app/childsoldier.js"></script>

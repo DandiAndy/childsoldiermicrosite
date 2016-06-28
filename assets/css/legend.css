@@ -1,25 +1,25 @@
 /*https://www.mapbox.com/tilemill/docs/guides/advanced-legends/*/
 
-.color-legend .legend-title {
+.legend-filter .legend-title {
     text-align: left;
     margin-bottom: 5px;
     font-weight: bold;
     font-size: 90%;
 }
-.color-legend .legend-scale ul {
+.legend-filter .legend-scale ul {
     margin: 0 0 5px;
     padding: 0;
     float: left;
     list-style: none;
 }
-.color-legend .legend-scale ul li {
+.legend-filter .legend-scale ul li {
     font-size: 80%;
     list-style: none;
     margin-left: 0;
     line-height: 18px;
     margin-bottom: 2px;
 }
-.color-legend ul.legend-labels li span {
+.legend-filter ul.legend-labels li span {
     display: block;
     float: left;
     height: 16px;
@@ -28,7 +28,7 @@
     margin-left: 0;
     border: 1px solid #999;
 }
-.color-legend .legend-source {
+.legend-filter .legend-source {
     font-size: 70%;
     color: #999;
     clear: both;

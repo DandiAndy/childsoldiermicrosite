@@ -1,4 +1,4 @@
-var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive']);
+var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive', 'ngMaterial', 'ngMessages']);
 
 
     app.controller('MapCtrl', ["$scope", function($scope){
@@ -129,4 +129,11 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive']);
         });
 
         
+    });
+
+    app.controller('DateCtrl', function($scope) {
+        $scope.startingDate = new Date();
+        $scope.endingDate = new Date();
+
+
     });
