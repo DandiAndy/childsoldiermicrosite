@@ -30,12 +30,12 @@
 
     <body ng-controller="MainCtrl as vm">
         <div class="container-fluid">
-            <div class="row">
+            <div class="row" ng-controller="MapCtrl">
                 <div class="col-sm-3 col-md-2 sidebar">
-                    <a ng-click="vm.setCurrentCountry(null)"><img class="logo" src="http://i.imgur.com/g46lyl6.png"></a>
+                    <a ng-click="vm.setCurrentCountry(null); setCurrentMap(null)"><img class="logo" src="http://i.imgur.com/g46lyl6.png"></a>
                     <ul class="nav nav-sidebar">
                         <li ng-repeat="country in vm.countries" ng-class="{'active':vm.isCurrentCountry(country)}">
-                            <a ng-click="vm.setCurrentCountry(country)">
+                            <a ng-click="vm.setCurrentCountry(country); setCurrentMap(country)">
                                 {{country.name}}
                             </a>
                         </li>
@@ -52,35 +52,37 @@
                          ng-show="vm.currentReport != null"
                          ng-include="'section_renderer'">
                     </div>
-                    <div ng-controller="MapCtrl as map"
-                        ng-show="vm.mapVisible">
+                            <!--Div of the map, with the script that loads icon objects and adds them to the map-->
+                    <div ng-show="vm.mapVisible">
                         <leaflet class="map" center="syria" markers="markers"></leaflet>
-                    </div>
-                    <div class="legend-filter" style="margin-top:50px;">
-                        <div class="legend-title">Incidents Color Legend</div>
-                        <div class="legend-scale">
-                            <ul class="legend-labels">
-                            	<li><span style="background:#ff0000;"></span>Killing and maiming of children</li>
-                            	<li><span style="background:#e2552b;"></span>Recruitment or use of children as soldiers</li>
-                            	<li><span style="background:#ff8428;"></span>Sexual violence against children</li>
-                              <li><span style="background:#ffa726;"></span>Attacks against schools or hospitals</li>
-                              <li><span style="background:#ffb72b;"></span>Denial of humanitarian access for children</li>
-                              <li><span style="background:#ffa81f;"></span>Abduction of children</li>
-                            </ul>
+
+                        <div class="legend-filter" style="margin-top:50px;">
+                            <div class="legend-title">Incidents Color legend</div>
+                            <div class="legend-scale">
+                                <ul class="legend-labels">
+                                    <li> <input type="checkbox" ng-model="checkBoxValues.murderMaimingFilter"> <span style="background:#ff0000;"></span>Killing and maiming of children</li>
+                                    <li> <input type="checkbox" ng-model="checkBoxValues.recruitmentFilter"> <span style="background:#0000ff;"></span>Recruitment or use of children as soldiers</li>
+                                    <li> <input type="checkbox" ng-model="checkBoxValues.sexualViolenceFilter"> <span style="background:#9932cc;"></span>Sexual violence against children</li>
+                                    <li> <input type="checkbox" ng-model="checkBoxValues.attacksFilter"> <span style="background:#ffff00;"></span>Attacks against schools or hospitals</li>
+                                    <li> <input type="checkbox" ng-model="checkBoxValues.humanitarianDenialFilter"> <span style="background:#ff9900;"></span>Denial of humanitarian access for children</li>
+                                    <li> <input type="checkbox" ng-model="checkBoxValues.abductionFilter"> <span style="background:#00ff00;"></span>Abduction of children</li>
+                                    <li> <input type="checkbox" ng-model="checkBoxValues.otherFilter"> <span style="background:#00ff00;"></span>Other</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                    <div ng-controller="DateCtrl" class="legend-filter">
-                        <md-content>
-                            <div class="legend-title">Date Filter</div>
-                            <form name="DateForm">
-                                <label>Starting Date:</label>
-                                <md-datepicker ng-model="startingDate" md-placeholder="Enter Starting Date"></md-datepicker>
-                                <br>
-                                <label>Ending Date:</label>
-                                <md-datepicker ng-model="endingDate" md-placeholder="Enter Ending Date"></md-datepicker>
-                            </form>
-                        </md-content>
-                    </div>
+                    <!--<div ng-controller="DateCtrl" class="legend-filter">-->
+                        <!--<md-content>-->
+                            <!--<div class="legend-title">Date Filter</div>-->
+                            <!--<form name="DateForm">-->
+                                <!--<label>Starting Date:</label>-->
+                                <!--<md-datepicker ng-model="startingDate" md-placeholder="Enter Starting Date"></md-datepicker>-->
+                                <!--<br>-->
+                                <!--<label>Ending Date:</label>-->
+                                <!--<md-datepicker ng-model="endingDate" md-placeholder="Enter Ending Date"></md-datepicker>-->
+                            <!--</form>-->
+                        <!--</md-content>-->
+                    <!--</div>-->
                 </div>
             </div>
         </div>
@@ -92,12 +94,12 @@
         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
         <script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-leaflet-directive/0.10.0/angular-leaflet-directive.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 
 
         <script src="app/childsoldier.js"></script>
-
     </body>
 </html>
