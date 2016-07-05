@@ -42,16 +42,36 @@
                     </ul>
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                    <div ng-class="{active: vm.isSelectedReport(report.id)}"
-                         ng-show="vm.currentCountry != null"
-                         ng-repeat="report in vm.reports | filter:{country:vm.currentCountry.id}">
-                        <a ng-click="vm.setCurrentReport(report)" target="_blank">{{report.title}} - {{report.subtitle}}</a>
+
+                    <!-- TAB NAVIGATION -->
+                    <ul ng-show="vm.currentCountry != null" class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#tab1" role="tab" data-toggle="tab">Reports</a></li>
+                        <li><a href="#tab2" role="tab" data-toggle="tab">Time Lines</a></li>
+                        <li><a href="#tab3" role="tab" data-toggle="tab">Undefined</a></li>
+                    </ul>
+                    <!-- TAB CONTENT -->
+                    <div class="tab-content pre-scrollable">
+                        <div ng-class="{active: vm.isSelectedReport(report.id)}" ng-show="vm.currentCountry != null"
+                             ng-repeat="report in vm.reports | filter:{country:vm.currentCountry.id}"
+                             class="active tab-pane fade in" id="tab1">
+                            <a ng-click="vm.setCurrentReport(report)" target="_blank">
+                                {{report.title}} - {{report.subtitle}}
+                            </a>
+                            <div ng-repeat="section in vm.sections | filter:{report:vm.currentReport.id}"
+                                 ng-show="vm.currentReport != null"
+                                 ng-include="'section_renderer'">
+                            </div>
+                        </div>
+                        <div ng-show="vm.currentCountry != null" class="tab-pane fade" id="tab2">
+                            <h2>Tab2</h2>
+                            <p>Lorem ipsum.</p>
+                        </div>
+                        <div ng-show="vm.currentCountry != null" class="tab-pane fade" id="tab3">
+                            <h2>Tab3</h2>
+                            <p>Lorem ipsum.</p>
+                        </div>
                     </div>
                     <hr/>
-                    <div ng-repeat="section in vm.sections | filter:{report:vm.currentReport.id}"
-                         ng-show="vm.currentReport != null"
-                         ng-include="'section_renderer'">
-                    </div>
                     <div ng-controller="MapCtrl as map"
                         ng-show="vm.mapVisible">
                         <leaflet class="map" center="syria" markers="markers"></leaflet>
@@ -60,12 +80,24 @@
                         <div class="legend-title">Incidents Color Legend</div>
                         <div class="legend-scale">
                             <ul class="legend-labels">
-                            	<li><span style="background:#ff0000;"></span>Killing and maiming of children</li>
-                            	<li><span style="background:#e2552b;"></span>Recruitment or use of children as soldiers</li>
-                            	<li><span style="background:#ff8428;"></span>Sexual violence against children</li>
-                              <li><span style="background:#ffa726;"></span>Attacks against schools or hospitals</li>
-                              <li><span style="background:#ffb72b;"></span>Denial of humanitarian access for children</li>
-                              <li><span style="background:#ffa81f;"></span>Abduction of children</li>
+                            	<li><span style="background:#ff0000;"></span>
+                                  Killing and maiming of children
+                              </li>
+                            	<li><span style="background:#e2552b;"></span>
+                                  Recruitment or use of children as soldiers
+                              </li>
+                            	<li><span style="background:#ff8428;"></span>
+                                  Sexual violence against children
+                              </li>
+                              <li><span style="background:#ffa726;"></span>
+                                  Attacks against schools or hospitals
+                              </li>
+                              <li><span style="background:#ffb72b;"></span>
+                                  Denial of humanitarian access for children
+                              </li>
+                              <li><span style="background:#ffa81f;"></span>
+                                  Abduction of children
+                              </li>
                             </ul>
                         </div>
                     </div>
@@ -95,6 +127,7 @@
         <script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-leaflet-directive/0.10.0/angular-leaflet-directive.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
+
 
 
         <script src="app/childsoldier.js"></script>

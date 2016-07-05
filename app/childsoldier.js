@@ -79,6 +79,7 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive', 'ng
 
         //init myMap for control of map refresh and default position.
         vm.mapVisible = false;
+        vm.legendVisible = false;
 
         //SCOPE FUNCTIONS
 
@@ -104,6 +105,7 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive', 'ng
             //set the map visibility whenever a country is selected, so that it can be refreshed.
             //Otherwise the map will be blank a blank without context.
             vm.setMapVisible(country !== null);
+            vm.setLegendVisible(country  !== null);
         };
 
         vm.isCurrentReport = function(report){
@@ -112,6 +114,10 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive', 'ng
 
         vm.setCurrentReport = function(report) {
             vm.currentReport = report;
+        };
+
+        vm.setLegendVisible = function (visible) {
+            vm.legendVisible = visible;
         };
 
         <!--CONSIDER REFACTORING INTO A PROMISE. This could do to fail more gracefully -->
