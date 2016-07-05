@@ -76,9 +76,13 @@
                         ng-show="vm.mapVisible">
                         <leaflet class="map" center="syria" markers="markers"></leaflet>
                     </div>
-                    <div class="legend-filter" style="margin-top:50px;">
+
+
+
+                    <div ng-controller="MapCtrl as map" ng-show="vm.legendVisible"
+                         class="legend-filter panel panel-default" style="margin-top:50px;">
                         <div class="legend-title">Incidents Color Legend</div>
-                        <div class="legend-scale">
+                        <div class="legend-scale panel-body">
                             <ul class="legend-labels">
                             	<li><span style="background:#ff0000;"></span>
                                   Killing and maiming of children
@@ -100,18 +104,18 @@
                               </li>
                             </ul>
                         </div>
-                    </div>
-                    <div ng-controller="DateCtrl" class="legend-filter">
-                        <md-content>
-                            <div class="legend-title">Date Filter</div>
-                            <form name="DateForm">
-                                <label>Starting Date:</label>
-                                <md-datepicker ng-model="startingDate" md-placeholder="Enter Starting Date"></md-datepicker>
-                                <br>
-                                <label>Ending Date:</label>
-                                <md-datepicker ng-model="endingDate" md-placeholder="Enter Ending Date"></md-datepicker>
-                            </form>
-                        </md-content>
+                        <div ng-controller="DateCtrl" class="legend-filter">
+                            <md-content>
+                                <div class="legend-title">Date Filter</div>
+                                <form name="DateForm">
+                                    <label>Starting Date:</label>
+                                    <md-datepicker ng-model="startingDate" md-placeholder="Enter Starting Date"></md-datepicker>
+                                    <br>
+                                    <label>Ending Date:</label>
+                                    <md-datepicker ng-model="endingDate" md-placeholder="Enter Ending Date"></md-datepicker>
+                                </form>
+                            </md-content>
+                        </div>
                     </div>
                 </div>
             </div>
