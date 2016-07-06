@@ -17,14 +17,44 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive'/*, '
 
         var local_icons = {
             default_icon: {},
-            killings_icon: {
-                iconUrl:    'assets/img/killing_marker.png',
+            murder_maiming: {
+                iconUrl:    'assets/img/murder_maiming_marker.png',
                 iconSize:   [38, 40],
                 iconAnchor:   [22, 40], // point of the icon which will correspond to marker's location
                 popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
             },
-            abductions_icon: {
+            recruitment: {
+                iconUrl:    'assets/img/recruitment_marker.png',
+                iconSize:   [38, 40],
+                iconAnchor:   [22, 40], // point of the icon which will correspond to marker's location
+                popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+            },
+            sexual_violence: {
+                iconUrl:    'assets/img/sexual_violence_marker.png',
+                iconSize:   [38, 40],
+                iconAnchor:   [22, 40], // point of the icon which will correspond to marker's location
+                popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+            },
+            attack: {
+                iconUrl:    'assets/img/attack_marker.png',
+                iconSize:   [38, 40],
+                iconAnchor:   [22, 40], // point of the icon which will correspond to marker's location
+                popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+            },
+            hum_denial: {
+                iconUrl:    'assets/img/hum_denial_marker.png',
+                iconSize:   [38, 40],
+                iconAnchor:   [22, 40], // point of the icon which will correspond to marker's location
+                popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+            },
+            abduction: {
                 iconUrl:    'assets/img/abduction_marker.png',
+                iconSize:   [38, 40],
+                iconAnchor:   [22, 40], // point of the icon which will correspond to marker's location
+                popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+            },
+            other: {
+                iconUrl:    'assets/img/other_marker.png',
                 iconSize:   [38, 40],
                 iconAnchor:   [22, 40], // point of the icon which will correspond to marker's location
                 popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
@@ -113,13 +143,14 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive'/*, '
                 if(points[i] != null){
                     //grab necessary data
                     var description = points[i]["description"];
+                    var title = points[i]["title"];
 
                     //change latlon to digits from string and change long to lng
                     points[i]["lat"] = parseFloat(points[i]["lat"]);
                     points[i]["lng"] = parseFloat(points[i]["long"]);
 
                     //add icon and message.
-                    points[i]["icon"] = $scope.icons.killings_icon;
+                    points[i]["icon"] = $scope.icons[title];
                     points[i]["message"] = description.toString();
 
                     //delete useless data
