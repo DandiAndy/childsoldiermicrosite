@@ -61,6 +61,14 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive'/*, '
             }
 
         };
+
+        // Date Variables/Flags
+        $scope.startingDate = new Date();
+        $scope.endingDate = new Date();
+
+        $scope.startingDateChange = false;
+        $scope.endingDateChange = false;
+
         //SCOPE EXTENSION
         angular.extend($scope, {
             icons: local_icons
@@ -91,11 +99,34 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive'/*, '
             console.log(country);
         };
 
+        // watches for changes in starting date and updates markers
+        $scope.$watch('startingInput.value', function(newVal) {
+            if (newVal != undefined) {
+                console.log('Change in Starting Date: ' + newVal);
+                $scope.startingDate = newVal;
+                $scope.startingDateChange = true;
+                $scope.changeMarkerFilter();
+            }
+        });
+
+        // watches for changes in ending date and updates markers
+        $scope.$watch('endingInput.value', function(newVal) {
+            if (newVal != undefined) {
+                console.log('Change in Ending Date: ' + newVal);
+                $scope.endingDate = newVal;
+                $scope.endingDateChange = true;
+                $scope.changeMarkerFilter();
+            }
+        });
+        
         //Changes the markers according to the current current filter.
         $scope.changeMarkerFilter = function() {
             //copy the points to a new object
             var allMarkers = jQuery.extend(true, {}, $scope.currentMap.points);
             //filter murders. If not checked, set allMarkers to all points not containing 'murder_maiming' as a title
+
+            var count = 1;
+
             if (!$scope.checkBoxValues.murderMaimingFilter){
                 allMarkers = _.filter(allMarkers, function (n) {
                     return n.title !== 'murder_maiming';
@@ -131,6 +162,61 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive'/*, '
                     return n.title !== 'abduction';
                 });
             }
+
+            //filters based on starting date value.
+            if ($scope.startingDateChange && $scope.startingDate != undefined) {
+                allMarkers = _.filter(allMarkers, function (n) {
+
+                    //---------------------Test-----------------------------
+                    if (n.date == undefined)
+                        n.date = "07-0" + count + "-2016";
+                    count++;
+                    //------------------------------------------------------
+
+                    var startDateComponents = n.date.split("-");
+                    var startMonth = parseInt(startDateComponents[0]);
+                    var startDay = parseInt(startDateComponents[1]);
+                    var startYear = parseInt(startDateComponents[2]);
+
+                    if ($scope.startingDate.getFullYear() < startYear) {
+                        return n;
+                    }
+                    else if ($scope.startingDate.getFullYear() == startYear && ($scope.startingDate.getMonth() + 1) < startMonth) {
+                        return n;
+                    }
+                    else if (($scope.startingDate.getMonth() + 1) == startMonth && $scope.startingDate.getDate() <= startDay) {
+                        return n;
+                   }
+                });
+            }
+
+            //filters based on ending date value.
+            if ($scope.endingDateChange && $scope.endingDate != undefined) {
+                allMarkers = _.filter(allMarkers, function (n) {
+
+                    //---------------------Test-----------------------------
+                    if (n.date == undefined)
+                        n.date = "07-0" + count + "-2016";
+                    count++;
+                    //------------------------------------------------------
+
+                    var endDateComponents = n.date.split("-");
+                    var endMonth = parseInt(endDateComponents[0]);
+                    var endDay = parseInt(endDateComponents[1]);
+                    var endYear = parseInt(endDateComponents[2]);
+
+                    if ($scope.endingDate.getFullYear() > endYear) {
+                        return n;
+                    }
+                    else if ($scope.endingDate.getFullYear() == endYear && ($scope.endingDate.getMonth() + 1) > endMonth) {
+                        return n;
+                    }
+                    else if (($scope.endingDate.getMonth() + 1) == endMonth && $scope.endingDate.getDate() >= endDay) {
+                        return n;
+                    }
+                });
+            }
+
             //appropriate each object to match what is needed for the leaflet map to work.
             $scope.markers = $scope.appropriateObject(allMarkers);
         };
@@ -287,13 +373,4 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive'/*, '
         $http.get('http://childsoldiers-api.herokuapp.com//sections/').success(function(data) {
             vm.sections = data;
         });
-
-        
-    });
-
-    app.controller('DateCtrl', function($scope) {
-        $scope.startingDate = new Date();
-        $scope.endingDate = new Date();
-
-
     });

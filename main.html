@@ -71,7 +71,7 @@
                             <p>Lorem ipsum.</p>
                         </div>
                     </div>
-                            <!--Div of the map, with the script that loads icon objects and adds them to the map-->
+                    <!--Div of the map, with the script that loads icon objects and adds them to the map-->
                     <div ng-show="vm.mapVisible">
                         <leaflet class="map" center="syria" markers="markers"></leaflet>
 
@@ -90,18 +90,19 @@
                             </div>
                         </div>
                     </div>
-                    <!--<div ng-controller="DateCtrl" class="legend-filter">-->
-                        <!--<md-content>-->
-                            <!--<div class="legend-title">Date Filter</div>-->
-                            <!--<form name="DateForm">-->
-                                <!--<label>Starting Date:</label>-->
-                                <!--<md-datepicker ng-model="startingDate" md-placeholder="Enter Starting Date"></md-datepicker>-->
-                                <!--<br>-->
-                                <!--<label>Ending Date:</label>-->
-                                <!--<md-datepicker ng-model="endingDate" md-placeholder="Enter Ending Date"></md-datepicker>-->
-                            <!--</form>-->
-                        <!--</md-content>-->
-                    <!--</div>-->
+                    <div class="legend-filter" ng-show="vm.mapVisible">
+                        <div class="legend-title">Incidents Date Filter</div>
+                        <form name="dateForm">
+                            <label for="startingInput">Starting Date:</label>
+                            <input type="date" id="startingInput" name="startingInput" ng-model="startingInput.value"
+                                   placeholder="yyyy-MM-dd"/>
+                            <br/>
+                            <br/>
+                            <label for="endingInput">Ending Date:</label>
+                            <input type="date" id="endingInput" name="endingInput" ng-model="endingInput.value"
+                                   placeholder="yyyy-MM-dd"/>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
