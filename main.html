@@ -72,36 +72,61 @@
                         </div>
                     </div>
                     <!--Div of the map, with the script that loads icon objects and adds them to the map-->
-                    <div ng-show="vm.mapVisible">
-                        <leaflet class="map" center="syria" markers="markers"></leaflet>
+                    <div ng-show="vm.mapVisible" class="row">
+                        <div class="col-sm-6">
+                            <leaflet class="map" center="syria" markers="markers"></leaflet>
+                        </div>
 
-                        <div class="legend-filter" style="margin-top:50px;">
-                            <div class="legend-title">Incidents Color legend</div>
-                            <div class="legend-scale">
-                                <ul class="legend-labels">
-                                    <li> <input type="checkbox" ng-model="checkBoxValues.murderMaimingFilter"> <span style="background:#ff0000;"></span>Killing and maiming of children</li>
-                                    <li> <input type="checkbox" ng-model="checkBoxValues.recruitmentFilter"> <span style="background:#0000ff;"></span>Recruitment or use of children as soldiers</li>
-                                    <li> <input type="checkbox" ng-model="checkBoxValues.sexualViolenceFilter"> <span style="background:#9932cc;"></span>Sexual violence against children</li>
-                                    <li> <input type="checkbox" ng-model="checkBoxValues.attacksFilter"> <span style="background:#ffff00;"></span>Attacks against schools or hospitals</li>
-                                    <li> <input type="checkbox" ng-model="checkBoxValues.humanitarianDenialFilter"> <span style="background:#ff9900;"></span>Denial of humanitarian access for children</li>
-                                    <li> <input type="checkbox" ng-model="checkBoxValues.abductionFilter"> <span style="background:#00ff00;"></span>Abduction of children</li>
-                                    <li> <input type="checkbox" ng-model="checkBoxValues.otherFilter"> <span style="background:#666666;"></span>Other</li>
-                                </ul>
+                        <div class="panel panel-default col-sm-5">
+                            <div class="legend-filter" style="margin-top:50px;">
+                                <div class="legend-title">Incidents Color legend</div>
+                                <div class="legend-scale panel-body">
+                                    <ul class="legend-labels">
+                                        <li> <input type="checkbox" ng-model="checkBoxValues.murderMaimingFilter">
+                                            <span style="background:#ff0000;"></span>
+                                            Killing and maiming of children
+                                        </li>
+                                        <li> <input type="checkbox" ng-model="checkBoxValues.recruitmentFilter">
+                                            <span style="background:#0000ff;"></span>
+                                            Recruitment or use of children as soldiers
+                                        </li>
+                                        <li> <input type="checkbox" ng-model="checkBoxValues.sexualViolenceFilter">
+                                            <span style="background:#9932cc;"></span>
+                                            Sexual violence against children
+                                        </li>
+                                        <li> <input type="checkbox" ng-model="checkBoxValues.attacksFilter">
+                                            <span style="background:#ffff00;"></span>
+                                            Attacks against schools or hospitals
+                                        </li>
+                                        <li> <input type="checkbox" ng-model="checkBoxValues.humanitarianDenialFilter">
+                                            <span style="background:#ff9900;"></span>
+                                            Denial of humanitarian access for children
+                                        </li>
+                                        <li> <input type="checkbox" ng-model="checkBoxValues.abductionFilter">
+                                            <span style="background:#00ff00;"></span>
+                                            Abduction of children
+                                        </li>
+                                        <li> <input type="checkbox" ng-model="checkBoxValues.otherFilter">
+                                            <span style="background:#666666;"></span>
+                                            Other
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="legend-filter">
+                                    <div class="legend-title">Incidents Date Filter</div>
+                                    <form name="dateForm">
+                                        <label for="startingInput">Starting Date:</label>
+                                        <input type="date" id="startingInput" name="startingInput" ng-model="startingInput.value"
+                                               placeholder="yyyy-MM-dd"/>
+                                        <br/>
+                                        <br/>
+                                        <label for="endingInput">Ending Date:</label>
+                                        <input type="date" id="endingInput" name="endingInput" ng-model="endingInput.value"
+                                               placeholder="yyyy-MM-dd"/>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="legend-filter" ng-show="vm.mapVisible">
-                        <div class="legend-title">Incidents Date Filter</div>
-                        <form name="dateForm">
-                            <label for="startingInput">Starting Date:</label>
-                            <input type="date" id="startingInput" name="startingInput" ng-model="startingInput.value"
-                                   placeholder="yyyy-MM-dd"/>
-                            <br/>
-                            <br/>
-                            <label for="endingInput">Ending Date:</label>
-                            <input type="date" id="endingInput" name="endingInput" ng-model="endingInput.value"
-                                   placeholder="yyyy-MM-dd"/>
-                        </form>
                     </div>
                 </div>
             </div>
