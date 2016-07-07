@@ -4,5 +4,22 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="angular" level="application" />
+    <orderEntry type="library" name="angular-google-maps" level="application" />
+    <orderEntry type="library" name="angular-google-maps-street-view" level="application" />
+    <orderEntry type="library" name="angular-leaflet-directive" level="application" />
+    <orderEntry type="library" name="angular-sanitize" level="application" />
+    <orderEntry type="library" name="angular-simple-logger" level="application" />
+    <orderEntry type="library" name="bootstrap" level="application" />
+    <orderEntry type="library" name="jquery" level="application" />
+    <orderEntry type="library" name="jQuery UI-1.10.2" level="application" />
+    <orderEntry type="library" name="jQuery-2.0.0" level="application" />
+    <orderEntry type="library" name="leaflet" level="application" />
+    <orderEntry type="library" name="lodash" level="application" />
+    <orderEntry type="library" name="underscore" level="application" />
+    <orderEntry type="library" name="angular-animate" level="application" />
+    <orderEntry type="library" name="angular-aria" level="application" />
+    <orderEntry type="library" name="angular-messages" level="application" />
+    <orderEntry type="library" name="angular-material" level="application" />
   </component>
 </module>

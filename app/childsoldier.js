@@ -75,7 +75,7 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive'/*, '
         });
 
         angular.extend($scope, {
-            syria: {
+            country: {
                 lat: 34.8021,
                 lng: 38.9968,
                 zoom: 7
@@ -95,6 +95,10 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive'/*, '
                     $scope.currentMap = $scope.maps[i];
                 }
             }
+            console.log($scope.country);
+            $scope.country["lat"] = parseFloat($scope.currentMap["lat"]);
+            $scope.country["lng"] = parseFloat($scope.currentMap["long"]);
+            $scope.country["zoom"] = parseInt($scope.currentMap["default_zoom"]);
             $scope.changeMarkerFilter();
             console.log(country);
         };
