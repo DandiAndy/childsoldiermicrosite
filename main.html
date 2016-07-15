@@ -6,7 +6,7 @@
         <title>Child Soldier</title>
 
         <link rel="stylesheet" href="assets/css/normalize.css">
-        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
         <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.css">
 
         <link rel="stylesheet" href="assets/css/childsoldier.css">
@@ -43,89 +43,96 @@
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-                    <!-- TAB NAVIGATION -->
-                    <ul ng-show="vm.currentCountry != null" class="nav nav-tabs" role="tablist">
-                        <li class="active"><a href="#tab1" role="tab" data-toggle="tab">Reports</a></li>
-                        <li><a href="#tab2" role="tab" data-toggle="tab">Time Lines</a></li>
-                        <li><a href="#tab3" role="tab" data-toggle="tab">Undefined</a></li>
-                    </ul>
-                    <!-- TAB CONTENT -->
-                    <div class="tab-content pre-scrollable">
-                        <div ng-class="{active: vm.isSelectedReport(report.id)}" ng-show="vm.currentCountry != null"
-                             ng-repeat="report in vm.reports | filter:{country:vm.currentCountry.id}"
-                             class="active tab-pane fade in" id="tab1">
-                            <a ng-click="vm.setCurrentReport(report)" target="_blank">
-                                {{report.title}} - {{report.subtitle}}
-                            </a>
-                            <div ng-repeat="section in vm.sections | filter:{report:vm.currentReport.id}"
-                                 ng-show="vm.currentReport != null"
-                                 ng-include="'section_renderer'">
+                    <div class="row">
+                        <!-- TAB NAVIGATION -->
+                        <div class="col-xs-6 scrollable">
+                            <ul ng-show="vm.currentCountry != null" class="nav nav-tabs" style="position: fixed;" role="tablist">
+                                <li class="active"><a href="#tab1" role="tab" data-toggle="tab">Reports</a></li>
+                                <li><a href="#tab2" role="tab" data-toggle="tab">Time Lines</a></li>
+                                <li><a href="#tab3" role="tab" data-toggle="tab">Undefined</a></li>
+                            </ul>
+                            <!-- TAB CONTENT -->
+                            <div class="tab-content" style="margin-top: 60px">
+                                <div ng-class="{active: vm.isSelectedReport(report.id)}" ng-show="vm.currentCountry != null"
+                                     ng-repeat="report in vm.reports | filter:{country:vm.currentCountry.id}"
+                                     class="active tab-pane fade in" id="tab1">
+                                    <a ng-click="vm.setCurrentReport(report)" target="_blank">
+                                        {{report.title}} - {{report.subtitle}}
+                                    </a>
+                                    <div ng-repeat="section in vm.sections | filter:{report:vm.currentReport.id}"
+                                         ng-show="vm.currentReport != null"
+                                         ng-include="'section_renderer'">
+                                    </div>
+                                </div>
+                                <div ng-show="vm.currentCountry != null" class="tab-pane fade" id="tab2">
+                                    <h2>Tab2</h2>
+                                    <p>Lorem ipsum.</p>
+                                </div>
+                                <div ng-show="vm.currentCountry != null" class="tab-pane fade" id="tab3">
+                                    <h2>Tab3</h2>
+                                    <p>Lorem ipsum.</p>
+                                </div>
                             </div>
                         </div>
-                        <div ng-show="vm.currentCountry != null" class="tab-pane fade" id="tab2">
-                            <h2>Tab2</h2>
-                            <p>Lorem ipsum.</p>
-                        </div>
-                        <div ng-show="vm.currentCountry != null" class="tab-pane fade" id="tab3">
-                            <h2>Tab3</h2>
-                            <p>Lorem ipsum.</p>
-                        </div>
-                    </div>
-                    <!--Div of the map, with the script that loads icon objects and adds them to the map-->
-                    <div ng-show="vm.mapVisible" class="row">
-                        <div class="col-sm-6">
-                            <leaflet class="map" center="country" markers="markers"></leaflet>
-                        </div>
+                        <!--Div of the map, with the script that loads icon objects and adds them to the map-->
+                        <div ng-show="vm.mapVisible" class="row col-xs-6 map_div">
+                            <div class="map_panel col-xs-1">
+                                <div class="hide_btn"></div>
+                                <div class="filter_btn"></div>
+                            </div>
+                            <leaflet class="map col-xs-11" center="country" markers="markers"></leaflet>
 
-                        <div class="panel panel-default col-sm-5">
-                            <div class="legend-filter" style="margin-top:50px;">
-                                <div class="legend-title">Incidents Color legend</div>
-                                <div class="legend-scale panel-body">
-                                    <ul class="legend-labels">
-                                        <li> <input type="checkbox" ng-model="checkBoxValues.murderMaimingFilter">
-                                            <span style="background:#ff0000;"></span>
-                                            Killing and maiming of children
-                                        </li>
-                                        <li> <input type="checkbox" ng-model="checkBoxValues.recruitmentFilter">
-                                            <span style="background:#0000ff;"></span>
-                                            Recruitment or use of children as soldiers
-                                        </li>
-                                        <li> <input type="checkbox" ng-model="checkBoxValues.sexualViolenceFilter">
-                                            <span style="background:#9932cc;"></span>
-                                            Sexual violence against children
-                                        </li>
-                                        <li> <input type="checkbox" ng-model="checkBoxValues.attacksFilter">
-                                            <span style="background:#ffff00;"></span>
-                                            Attacks against schools or hospitals
-                                        </li>
-                                        <li> <input type="checkbox" ng-model="checkBoxValues.humanitarianDenialFilter">
-                                            <span style="background:#ff9900;"></span>
-                                            Denial of humanitarian access for children
-                                        </li>
-                                        <li> <input type="checkbox" ng-model="checkBoxValues.abductionFilter">
-                                            <span style="background:#00ff00;"></span>
-                                            Abduction of children
-                                        </li>
-                                        <li> <input type="checkbox" ng-model="checkBoxValues.otherFilter">
-                                            <span style="background:#666666;"></span>
-                                            Other
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="legend-filter">
-                                    <div class="legend-title">Incidents Date Filter</div>
-                                    <form name="dateForm">
-                                        <label for="startingInput">Starting Date:</label>
-                                        <input type="date" id="startingInput" name="startingInput" ng-model="startingInput.value"
-                                               placeholder="yyyy-MM-dd"/>
-                                        <br/>
-                                        <br/>
-                                        <label for="endingInput">Ending Date:</label>
-                                        <input type="date" id="endingInput" name="endingInput" ng-model="endingInput.value"
-                                               placeholder="yyyy-MM-dd"/>
-                                    </form>
-                                </div>
-                            </div>
+
+                            <!--<div class="panel panel-default col-xs-6">-->
+                                <!--<div class="legend-filter" style="margin-top:50px;">-->
+                                    <!--<div class="legend-title">Incidents Color legend</div>-->
+                                    <!--<div class="legend-scale panel-body">-->
+                                        <!--<ul class="legend-labels">-->
+                                            <!--<li> <input type="checkbox" ng-model="checkBoxValues.murderMaimingFilter">-->
+                                                <!--<span style="background:#ff0000;"></span>-->
+                                                <!--Killing and maiming of children-->
+                                            <!--</li>-->
+                                            <!--<li> <input type="checkbox" ng-model="checkBoxValues.recruitmentFilter">-->
+                                                <!--<span style="background:#0000ff;"></span>-->
+                                                <!--Recruitment or use of children as soldiers-->
+                                            <!--</li>-->
+                                            <!--<li> <input type="checkbox" ng-model="checkBoxValues.sexualViolenceFilter">-->
+                                                <!--<span style="background:#9932cc;"></span>-->
+                                                <!--Sexual violence against children-->
+                                            <!--</li>-->
+                                            <!--<li> <input type="checkbox" ng-model="checkBoxValues.attacksFilter">-->
+                                                <!--<span style="background:#ffff00;"></span>-->
+                                                <!--Attacks against schools or hospitals-->
+                                            <!--</li>-->
+                                            <!--<li> <input type="checkbox" ng-model="checkBoxValues.humanitarianDenialFilter">-->
+                                                <!--<span style="background:#ff9900;"></span>-->
+                                                <!--Denial of humanitarian access for children-->
+                                            <!--</li>-->
+                                            <!--<li> <input type="checkbox" ng-model="checkBoxValues.abductionFilter">-->
+                                                <!--<span style="background:#00ff00;"></span>-->
+                                                <!--Abduction of children-->
+                                            <!--</li>-->
+                                            <!--<li> <input type="checkbox" ng-model="checkBoxValues.otherFilter">-->
+                                                <!--<span style="background:#666666;"></span>-->
+                                                <!--Other-->
+                                            <!--</li>-->
+                                        <!--</ul>-->
+                                    <!--</div>-->
+                                    <!--<div class="legend-filter">-->
+                                        <!--<div class="legend-title">Incidents Date Filter</div>-->
+                                        <!--<form name="dateForm">-->
+                                            <!--<label for="startingInput">Starting Date:</label>-->
+                                            <!--<input type="date" id="startingInput" name="startingInput" ng-model="startingInput.value"-->
+                                                   <!--placeholder="yyyy-MM-dd"/>-->
+                                            <!--<br/>-->
+                                            <!--<br/>-->
+                                            <!--<label for="endingInput">Ending Date:</label>-->
+                                            <!--<input type="date" id="endingInput" name="endingInput" ng-model="endingInput.value"-->
+                                                   <!--placeholder="yyyy-MM-dd"/>-->
+                                        <!--</form>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
                         </div>
                     </div>
                 </div>
@@ -133,7 +140,7 @@
         </div>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-sanitize.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
