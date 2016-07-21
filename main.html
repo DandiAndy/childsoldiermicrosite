@@ -102,33 +102,62 @@
                                     <div class="legend-title">Incidents Color legend</div>
                                     <div class="legend-scale panel-body">
                                         <ul class="legend-labels">
-                                            <li> <input title="mm" type="checkbox" ng-model="checkBoxValues.murderMaimingFilter">
-                                                <span style="background:#ff0000;"></span>
-                                                Killing and maiming of children
+                                            <li>
+                                                <p class="textStyle">
+                                                    <button id="hotspot_1" class="btn btn-primary btn-xs"  ng-click="filterHotspots(1)">
+                                                        <img src="assets/img/murder_maiming_legend.png" alt="Killing and Maiming Icon">
+                                                    </button>
+                                                    Killing and Maiming of children
+                                                </p>
                                             </li>
-                                            <li> <input title="r" type="checkbox" ng-model="checkBoxValues.recruitmentFilter">
-                                                <span style="background:#0000ff;"></span>
-                                                Recruitment or use of children as soldiers
+                                            <li>
+                                                <p class="textStyle">
+                                                    <button id="hotspot_2" class="btn btn-primary btn-xs"  ng-click="filterHotspots(2)">
+                                                        <img src="assets/img/recruitment_legend.png" alt="Recruitment Icon">
+                                                    </button>
+                                                    Recruitment or use of children as soldiers
+                                                </p>
                                             </li>
-                                            <li> <input title="sv" type="checkbox" ng-model="checkBoxValues.sexualViolenceFilter">
-                                                <span style="background:#9932cc;"></span>
-                                                Sexual violence against children
+                                            <li>
+                                                <p class="textStyle">
+                                                    <button id="hotspot_3" class="btn btn-primary btn-xs"  ng-click="filterHotspots(3)">
+                                                        <img src="assets/img/sexual_violence_legend.png" alt="Sexual Violence Icon">
+                                                    </button>
+                                                    Sexual violence against children
+                                                </p>
                                             </li>
-                                            <li> <input title="a" type="checkbox" ng-model="checkBoxValues.attacksFilter">
-                                                <span style="background:#ffff00;"></span>
-                                                Attacks against schools or hospitals
+                                            <li>
+                                                <p class="textStyle">
+                                                    <button id="hotspot_4" class="btn btn-primary btn-xs"  ng-click="filterHotspots(4)">
+                                                        <img src="assets/img/attack_legend.png" alt="Attack Against School or Hospital Icon">
+                                                    </button>
+                                                    Attacks against schools or hospitals
+                                                </p>
+
                                             </li>
-                                            <li> <input title="hd" type="checkbox" ng-model="checkBoxValues.humanitarianDenialFilter">
-                                                <span style="background:#ff9900;"></span>
-                                                Denial of humanitarian access for children
+                                            <li>
+                                                <p class="textStyle">
+                                                    <button id="hotspot_5" class="btn btn-primary btn-xs"  ng-click="filterHotspots(5)">
+                                                        <img src="assets/img/hum_denial_legend.png" alt="Denial of Humanitarian Aid Icon">
+                                                    </button>
+                                                    Denial of humanitarian access for children
+                                                </p>
                                             </li>
-                                            <li> <input title="ab" type="checkbox" ng-model="checkBoxValues.abductionFilter">
-                                                <span style="background:#00ff00;"></span>
-                                                Abduction of children
+                                            <li>
+                                                <p class="textStyle">
+                                                    <button id="hotspot_6" class="btn btn-primary btn-xs"  ng-click="filterHotspots(6)">
+                                                        <img src="assets/img/abduction_legend.png" alt="Abduction Icon">
+                                                    </button>
+                                                    Abduction of children
+                                                </p>
                                             </li>
-                                            <li> <input title="o" type="checkbox" ng-model="checkBoxValues.otherFilter">
-                                                <span style="background:#666666;"></span>
-                                                Other
+                                            <li>
+                                                <p class="textStyle">
+                                                    <button id="hotspot_7" class="btn btn-primary btn-xs"  ng-click="filterHotspots(7)">
+                                                        <img src="assets/img/other_legend.png" alt="Other Icon">
+                                                    </button>
+                                                    Other
+                                                </p>
                                             </li>
                                         </ul>
                                     </div>
