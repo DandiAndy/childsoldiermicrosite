@@ -223,7 +223,6 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive', 'ng
 
         // watches for changes in starting date and updates markers
         $scope.$watch('startingInput.value', function(newVal) {
-            console.log("HELLO");
             if (newVal != undefined) {
                 console.log('Change in Starting Date: ' + newVal);
                 $scope.startingDate = newVal;
@@ -255,10 +254,10 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive', 'ng
                 if ($scope.startingDate.getFullYear() > $scope.endingDate.getFullYear() && startingDate !=null) {
                     document.getElementById("errorMessage").innerHTML = ("Error: starting date is later than ending date.");
                 }
-                else if ($scope.startingDate.getFullYear() == $scope.endingDate.getFullYear() && ($scope.startingDate.getMonth() + 1) > ($scope.endingDate.getMonth() + 1) && startingDate !=null) {
+                else if ($scope.startingDate.getFullYear() == $scope.endingDate.getFullYear() && ($scope.startingDate.getMonth() + 1) > ($scope.endingDate.getMonth() + 1) && $scope.startingDate !=null) {
                     document.getElementById("errorMessage").innerHTML = ("Error: starting date is later than ending date.");
                 }
-                else if (($scope.startingDate.getMonth() + 1) == ($scope.endingDate.getMonth() + 1) && $scope.startingDate.getDate() > $scope.endingDate.getDate() && startingDate !=null) {
+                else if (($scope.startingDate.getMonth() + 1) == ($scope.endingDate.getMonth() + 1) && $scope.startingDate.getDate() > $scope.endingDate.getDate() && $scope.startingDate !=null) {
                     document.getElementById("errorMessage").innerHTML = ("Error: starting date is later than ending date.");
                 }
                 else {
