@@ -1,4 +1,15 @@
 /*https://www.mapbox.com/tilemill/docs/guides/advanced-legends/*/
+.filter {
+    z-index: 9999;
+    left: 6%;
+    -webkit-box-shadow: 3px 3px 3px #666666;
+    -moz-box-shadow: 3px 3px 3px #666666;
+    box-shadow: 3px 3px 3px #666666;
+}
+
+.legend-filter {
+    padding: 10px;
+}
 
 .legend-filter .legend-title {
     text-align: left;

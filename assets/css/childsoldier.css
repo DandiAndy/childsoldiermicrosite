@@ -60,8 +60,8 @@ a:hover {
 }
 
 .sidebar > ul {
-    margin: 0;
-    padding: 0;
+    margin: 0px;
+    padding: 0px;
 }
 
 .sidebar .active {
@@ -100,7 +100,7 @@ a:hover {
 }
 
 .main {
-    padding-top: 0;
+    padding-top: 0px;
     padding-left: 12px;
     padding-right: 0;
     position: relative;
@@ -108,7 +108,7 @@ a:hover {
 
 .scrollable {
     height: 100vh;
-    width: 50%;
+    width: 100%;
     overflow-y: scroll;
     position: inherit;
     padding-left: 10px;
@@ -119,6 +119,10 @@ a:hover {
 .createReport {
     padding-left: 5px;
     padding-right: 5px;
+}
+
+.logo {
+    max-width: 100%;
 }
 
 .create-form, .edit-form {
@@ -150,4 +154,26 @@ a:hover {
 
 .container-fluid {
     padding-right: 0;
+}
+
+/* This is the homepage background. Pibor3, 4, 5 are Sepiatone, slightly grayed, and cyanotype */
+.homepage {
+    background-image: url(../img/13_Pibor4.png);
+    background-repeat: no-repeat;
+    background-position: right;
+    background-attachement: relative;
+    background-size: cover;
+}
+
+/* To change the tab background white from the homepage background */
+.tab-background{
+    background-color: white;
+}
+
+/*The dalhousie Logo */
+.sidebar-footer {
+    position: absolute;
+    bottom: 0;
+    padding: 20px;
+    max-width: 100%;
 }

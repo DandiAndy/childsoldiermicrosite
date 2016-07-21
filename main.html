@@ -28,111 +28,129 @@
             </div>
     </script>
 
-    <body ng-controller="MainCtrl as vm">
+    <body id="homepage" class="homepage" ng-controller="MainCtrl as vm">
+
         <div class="container-fluid">
             <div class="row" ng-controller="MapCtrl">
+                <!--Fixed map panel allowing for map modification-->
+                <div class="map_panel row" ng-hide="vm.mainPage">
+                    <div class="hide_btn col-xs-6" ng-click="vm.changeReportSize()"></div>
+                    <div class="filter_btn col-xs-6" ng-click="switchFilterVisible()"></div>
+                </div>
+
                 <div class="col-sm-3 col-md-2 sidebar">
-                    <a ng-click="vm.setCurrentCountry(null); setCurrentMap(null)"><img class="logo" src="http://i.imgur.com/g46lyl6.png"></a>
+                    <a ng-click="vm.changeBackground('home'); vm.setCurrentCountry(null); setCurrentMap(null)"><img class="logo" src="assets/img/logo.png"></a>
                     <ul class="nav nav-sidebar">
                         <li ng-repeat="country in vm.countries" ng-class="{'active':vm.isCurrentCountry(country)}">
-                            <a ng-click="vm.setCurrentCountry(country); setCurrentMap(country)">
+                            <a ng-click="vm.changeBackground('tab'); vm.setCurrentCountry(country); setCurrentMap(country)">
                                 {{country.name}}
                             </a>
                         </li>
                     </ul>
+                    <img class="sidebar-footer" src="assets/img/dal_logo.png">
+
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-                    <div class="row">
+
+                    <div class="row" ng-hide="vm.mainPage">
                         <!-- TAB NAVIGATION -->
-                        <div class="col-xs-6 scrollable">
-                            <ul ng-show="vm.currentCountry != null" class="nav nav-tabs" style="position: fixed;" role="tablist">
-                                <li class="active"><a href="#tab1" role="tab" data-toggle="tab">Reports</a></li>
-                                <li><a href="#tab2" role="tab" data-toggle="tab">Time Lines</a></li>
-                                <li><a href="#tab3" role="tab" data-toggle="tab">Undefined</a></li>
-                            </ul>
-                            <!-- TAB CONTENT -->
-                            <div class="tab-content" style="margin-top: 60px">
-                                <div ng-class="{active: vm.isSelectedReport(report.id)}" ng-show="vm.currentCountry != null"
-                                     ng-repeat="report in vm.reports | filter:{country:vm.currentCountry.id}"
-                                     class="active tab-pane fade in" id="tab1">
-                                    <a ng-click="vm.setCurrentReport(report)" target="_blank">
-                                        {{report.title}} - {{report.subtitle}}
-                                    </a>
-                                    <div ng-repeat="section in vm.sections | filter:{report:vm.currentReport.id}"
-                                         ng-show="vm.currentReport != null"
-                                         ng-include="'section_renderer'">
-                                    </div>
-                                </div>
-                                <div ng-show="vm.currentCountry != null" class="tab-pane fade" id="tab2">
-                                    <h2>Tab2</h2>
-                                    <p>Lorem ipsum.</p>
-                                </div>
-                                <div ng-show="vm.currentCountry != null" class="tab-pane fade" id="tab3">
-                                    <h2>Tab3</h2>
-                                    <p>Lorem ipsum.</p>
-                                </div>
+                        <div class="col-xs-6 row" ng-style="vm.reportPanel">
+                            <div class="col-xs-11 scrollable">
+                                <h1 align="center"> {{vm.currentCountry.name}} </h1>
+                                <md-content>
+                                    <md-tabs md-dynamic-height md-border-bottom md-center-tabs>
+                                        <md-tab label="Reports">
+                                            <md-content class="md-padding">
+                                                <h6 class="md-title">Reports</h6>
+                                                    <div ng-class="{active: vm.isSelectedReport(report.id)}" ng-show="vm.currentCountry != null"
+                                                    ng-repeat="report in vm.reports | filter:{country:vm.currentCountry.id}"
+                                                    class="active tab-pane fade in" id="tab1">
+                                                    <a ng-click="vm.setCurrentReport(report)" target="_blank">
+                                                        {{report.title}} - {{report.subtitle}}
+                                                    </a>
+                                                    <div ng-repeat="section in vm.sections | filter:{report:vm.currentReport.id}"
+                                                    ng-show="vm.currentReport != null"
+                                                    ng-include="'section_renderer'">
+                                                    </div>
+                                                </div>
+                                            </md-content>
+                                        </md-tab>
+                                        <md-tab label="Placeholder">
+                                            <md-content class="md-padding">
+                                                <h6 class="md-title">Title for Tab 2 Content</h6>
+                                                <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+                                            </md-content>
+                                        </md-tab>
+                                        <md-tab label="Placeholder">
+                                            <md-content class="md-padding">
+                                                <h6 class="md-title">Title for Tab 3 Content</h6>
+                                                <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+                                            </md-content>
+                                        </md-tab>
+                                    </md-tabs>
+                                </md-content>
                             </div>
                         </div>
+
                         <!--Div of the map, with the script that loads icon objects and adds them to the map-->
                         <div ng-show="vm.mapVisible" class="row col-xs-6 map_div">
-                            <div class="map_panel col-xs-1">
-                                <div class="hide_btn"></div>
-                                <div class="filter_btn"></div>
-                            </div>
-                            <leaflet class="map col-xs-11" center="country" markers="markers"></leaflet>
+
+                            <leaflet class="map col-xs-11" center="country" markers="markers">
+                                <div class="panel panel-default col-xs-6 filter" ng-show="showFilter">
+                                    <div class="legend-filter">
+                                        <div class="legend-title">Incidents Color legend</div>
+                                        <div class="legend-scale panel-body">
+                                            <ul class="legend-labels">
+                                                <li> <input title="mm" type="checkbox" ng-model="checkBoxValues.murderMaimingFilter">
+                                                    <span style="background:#ff0000;"></span>
+                                                    Killing and maiming of children
+                                                </li>
+                                                <li> <input title="r" type="checkbox" ng-model="checkBoxValues.recruitmentFilter">
+                                                    <span style="background:#0000ff;"></span>
+                                                    Recruitment or use of children as soldiers
+                                                </li>
+                                                <li> <input title="sv" type="checkbox" ng-model="checkBoxValues.sexualViolenceFilter">
+                                                    <span style="background:#9932cc;"></span>
+                                                    Sexual violence against children
+                                                </li>
+                                                <li> <input title="a" type="checkbox" ng-model="checkBoxValues.attacksFilter">
+                                                    <span style="background:#ffff00;"></span>
+                                                    Attacks against schools or hospitals
+                                                </li>
+                                                <li> <input title="hd" type="checkbox" ng-model="checkBoxValues.humanitarianDenialFilter">
+                                                    <span style="background:#ff9900;"></span>
+                                                    Denial of humanitarian access for children
+                                                </li>
+                                                <li> <input title="ab" type="checkbox" ng-model="checkBoxValues.abductionFilter">
+                                                    <span style="background:#00ff00;"></span>
+                                                    Abduction of children
+                                                </li>
+                                                <li> <input title="o" type="checkbox" ng-model="checkBoxValues.otherFilter">
+                                                    <span style="background:#666666;"></span>
+                                                    Other
+                                                </li>
+                                                <li>
+                                                    <div class="legend-title">Incidents Date Filter</div>
+                                                    <form name="dateForm">
+                                                        <label for="startingInput">Starting Date:</label>
+                                                        <input type="date" id="startingInput" name="startingInput" ng-model="startingInput.value"
+                                                               placeholder="yyyy-MM-dd"/>
+                                                        <br/>
+                                                        <br/>
+                                                        <label for="endingInput">Ending Date:</label>
+                                                        <input type="date" id="endingInput" name="endingInput" ng-model="endingInput.value"
+                                                               placeholder="yyyy-MM-dd"/>
+                                                    </form>
+                                                </li>
+                                            </ul>
+                                        </div>
 
 
-                            <!--<div class="panel panel-default col-xs-6">-->
-                                <!--<div class="legend-filter" style="margin-top:50px;">-->
-                                    <!--<div class="legend-title">Incidents Color legend</div>-->
-                                    <!--<div class="legend-scale panel-body">-->
-                                        <!--<ul class="legend-labels">-->
-                                            <!--<li> <input type="checkbox" ng-model="checkBoxValues.murderMaimingFilter">-->
-                                                <!--<span style="background:#ff0000;"></span>-->
-                                                <!--Killing and maiming of children-->
-                                            <!--</li>-->
-                                            <!--<li> <input type="checkbox" ng-model="checkBoxValues.recruitmentFilter">-->
-                                                <!--<span style="background:#0000ff;"></span>-->
-                                                <!--Recruitment or use of children as soldiers-->
-                                            <!--</li>-->
-                                            <!--<li> <input type="checkbox" ng-model="checkBoxValues.sexualViolenceFilter">-->
-                                                <!--<span style="background:#9932cc;"></span>-->
-                                                <!--Sexual violence against children-->
-                                            <!--</li>-->
-                                            <!--<li> <input type="checkbox" ng-model="checkBoxValues.attacksFilter">-->
-                                                <!--<span style="background:#ffff00;"></span>-->
-                                                <!--Attacks against schools or hospitals-->
-                                            <!--</li>-->
-                                            <!--<li> <input type="checkbox" ng-model="checkBoxValues.humanitarianDenialFilter">-->
-                                                <!--<span style="background:#ff9900;"></span>-->
-                                                <!--Denial of humanitarian access for children-->
-                                            <!--</li>-->
-                                            <!--<li> <input type="checkbox" ng-model="checkBoxValues.abductionFilter">-->
-                                                <!--<span style="background:#00ff00;"></span>-->
-                                                <!--Abduction of children-->
-                                            <!--</li>-->
-                                            <!--<li> <input type="checkbox" ng-model="checkBoxValues.otherFilter">-->
-                                                <!--<span style="background:#666666;"></span>-->
-                                                <!--Other-->
-                                            <!--</li>-->
-                                        <!--</ul>-->
-                                    <!--</div>-->
-                                    <!--<div class="legend-filter">-->
-                                        <!--<div class="legend-title">Incidents Date Filter</div>-->
-                                        <!--<form name="dateForm">-->
-                                            <!--<label for="startingInput">Starting Date:</label>-->
-                                            <!--<input type="date" id="startingInput" name="startingInput" ng-model="startingInput.value"-->
-                                                   <!--placeholder="yyyy-MM-dd"/>-->
-                                            <!--<br/>-->
-                                            <!--<br/>-->
-                                            <!--<label for="endingInput">Ending Date:</label>-->
-                                            <!--<input type="date" id="endingInput" name="endingInput" ng-model="endingInput.value"-->
-                                                   <!--placeholder="yyyy-MM-dd"/>-->
-                                        <!--</form>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                            <!--</div>-->
+                                    </div>
+                                </div>
+                            </leaflet>
+
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive'/*, 'ngMaterial', 'ngMessages'*/]);
+var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive', 'ngMaterial']);
 
     app.controller('MapCtrl', ['$scope', 'MapService', function($scope, MapService){
         //VARIABLES
@@ -68,6 +68,7 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive'/*, '
 
         $scope.startingDateChange = false;
         $scope.endingDateChange = false;
+        $scope.showFilter = false;
 
         //SCOPE EXTENSION
         angular.extend($scope, {
@@ -87,6 +88,119 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive'/*, '
         });
 
         //FUNCTIONS
+
+        //Filter hotspots performs a switch statement which ultimately just changes the button from not pressed to pressed.
+        //This could probably be made smaller.
+        $scope.filterHotspots = function(type){
+            switch(type){
+                case 1:
+                    if($scope.checkBoxValues.murderMaimingFilter == true) {
+                        $scope.checkBoxValues.murderMaimingFilter = false;
+
+                        angular.element("#hotspot_1").removeClass("btn btn-primary");
+                        angular.element("#hotspot_1").addClass("btn btn-danger active");
+                    }
+                    else{
+                        $scope.checkBoxValues.murderMaimingFilter = true;
+
+                        angular.element("#hotspot_1").removeClass("btn btn-danger active");
+                        angular.element("#hotspot_1").addClass("btn btn-primary");
+                    }
+
+                    break;
+                case 2:
+                    if($scope.checkBoxValues.recruitmentFilter == true){
+                        $scope.checkBoxValues.recruitmentFilter = false;
+
+                        angular.element("#hotspot_2").removeClass("btn btn-primary");
+                        angular.element("#hotspot_2").addClass("btn btn-danger active");
+                    }
+                    else{
+                        $scope.checkBoxValues.recruitmentFilter = true;
+
+                        angular.element("#hotspot_2").removeClass("btn btn-danger active");
+                        angular.element("#hotspot_2").addClass("btn btn-primary");
+                    }
+
+                    break;
+                case 3:
+                    if($scope.checkBoxValues.sexualViolenceFilter == true){
+                        $scope.checkBoxValues.sexualViolenceFilter = false;
+
+                        angular.element("#hotspot_3").removeClass("btn btn-primary");
+                        angular.element("#hotspot_3").addClass("btn btn-danger active");
+                    }
+                    else{
+                        $scope.checkBoxValues.sexualViolenceFilter = true;
+
+                        angular.element("#hotspot_3").removeClass("btn btn-danger active");
+                        angular.element("#hotspot_3").addClass("btn btn-primary");
+                    }
+
+                    break;
+                case 4:
+                    if($scope.checkBoxValues.attacksFilter == true){
+                        $scope.checkBoxValues.attacksFilter = false;
+
+                        angular.element("#hotspot_4").removeClass("btn btn-primary");
+                        angular.element("#hotspot_4").addClass("btn btn-danger active");
+                    }
+                    else{
+                        $scope.checkBoxValues.attacksFilter = true;
+
+                        angular.element("#hotspot_4").removeClass("btn btn-danger active");
+                        angular.element("#hotspot_4").addClass("btn btn-primary");
+                    }
+
+                    break;
+                case 5:
+                    if($scope.checkBoxValues.humanitarianDenialFilter == true){
+                        $scope.checkBoxValues.humanitarianDenialFilter = false;
+
+                        angular.element("#hotspot_5").removeClass("btn btn-primary");
+                        angular.element("#hotspot_5").addClass("btn btn-danger active");
+                    }
+                    else{
+                        $scope.checkBoxValues.humanitarianDenialFilter = true;
+
+                        angular.element("#hotspot_5").removeClass("btn btn-danger active");
+                        angular.element("#hotspot_5").addClass("btn btn-primary");
+                    }
+
+                    break;
+                case 6:
+                    if($scope.checkBoxValues.abductionFilter == true){
+                        $scope.checkBoxValues.abductionFilter = false;
+
+                        angular.element("#hotspot_6").removeClass("btn btn-primary");
+                        angular.element("#hotspot_6").addClass("btn btn-danger active");
+                    }
+                    else{
+                        $scope.checkBoxValues.abductionFilter = true;
+
+                        angular.element("#hotspot_6").removeClass("btn btn-danger active");
+                        angular.element("#hotspot_6").addClass("btn btn-primary");
+                    }
+
+                    break;
+                case 7:
+                    if($scope.checkBoxValues.otherFilter == true){
+                        $scope.checkBoxValues.otherFilter = false;
+
+                        angular.element("#hotspot_7").removeClass("btn btn-primary");
+                        angular.element("#hotspot_7").addClass("btn btn-danger active");
+                    }
+                    else{
+                        $scope.checkBoxValues.otherFilter = true;
+
+                        angular.element("#hotspot_7").removeClass("btn btn-danger active");
+                        angular.element("#hotspot_7").addClass("btn btn-primary");
+                    }
+
+                    break;
+            }
+        };
+
         //Sets the current map based on the country name passed in. The maps should be named by country.
         $scope.setCurrentMap = function(country){
             $scope.currentMap = $scope.maps[0];
@@ -103,12 +217,30 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive'/*, '
             console.log(country);
         };
 
+        $scope.switchFilterVisible = function(){
+            $scope.showFilter = !$scope.showFilter;
+        };
+
         // watches for changes in starting date and updates markers
         $scope.$watch('startingInput.value', function(newVal) {
+            console.log("HELLO");
             if (newVal != undefined) {
                 console.log('Change in Starting Date: ' + newVal);
                 $scope.startingDate = newVal;
                 $scope.startingDateChange = true;
+                // Check for invalid date, if so display error message, or clear the error message if now valid.
+                if ($scope.startingDate.getFullYear() > $scope.endingDate.getFullYear()) {
+                    document.getElementById("errorMessage").innerHTML = ("Error: starting date is later than ending date.");
+                }
+                else if ($scope.startingDate.getFullYear() == $scope.endingDate.getFullYear() && ($scope.startingDate.getMonth() + 1) > ($scope.endingDate.getMonth() + 1)) {
+                    document.getElementById("errorMessage").innerHTML = ("Error: starting date is later than ending date.");
+                }
+                else if (($scope.startingDate.getMonth() + 1) == ($scope.endingDate.getMonth() + 1) && $scope.startingDate.getDate() > $scope.endingDate.getDate()) {
+                    document.getElementById("errorMessage").innerHTML = ("Error: starting date is later than ending date.");
+                }
+                else {
+                    document.getElementById("errorMessage").innerHTML = (" ");
+                }
                 $scope.changeMarkerFilter();
             }
         });
@@ -119,6 +251,19 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive'/*, '
                 console.log('Change in Ending Date: ' + newVal);
                 $scope.endingDate = newVal;
                 $scope.endingDateChange = true;
+                // Check for invalid date, if so display error message, or clear the error message if now valid.
+                if ($scope.startingDate.getFullYear() > $scope.endingDate.getFullYear() && startingDate !=null) {
+                    document.getElementById("errorMessage").innerHTML = ("Error: starting date is later than ending date.");
+                }
+                else if ($scope.startingDate.getFullYear() == $scope.endingDate.getFullYear() && ($scope.startingDate.getMonth() + 1) > ($scope.endingDate.getMonth() + 1) && startingDate !=null) {
+                    document.getElementById("errorMessage").innerHTML = ("Error: starting date is later than ending date.");
+                }
+                else if (($scope.startingDate.getMonth() + 1) == ($scope.endingDate.getMonth() + 1) && $scope.startingDate.getDate() > $scope.endingDate.getDate() && startingDate !=null) {
+                    document.getElementById("errorMessage").innerHTML = ("Error: starting date is later than ending date.");
+                }
+                else {
+                    document.getElementById("errorMessage").innerHTML = (" ");
+                }
                 $scope.changeMarkerFilter();
             }
         });
@@ -129,7 +274,6 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive'/*, '
             var allMarkers = jQuery.extend(true, {}, $scope.currentMap.points);
             //filter murders. If not checked, set allMarkers to all points not containing 'murder_maiming' as a title
 
-            var count = 1;
 
             if (!$scope.checkBoxValues.murderMaimingFilter){
                 allMarkers = _.filter(allMarkers, function (n) {
@@ -171,16 +315,10 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive'/*, '
             if ($scope.startingDateChange && $scope.startingDate != undefined) {
                 allMarkers = _.filter(allMarkers, function (n) {
 
-                    //---------------------Test-----------------------------
-                    if (n.date == undefined)
-                        n.date = "07-0" + count + "-2016";
-                    count++;
-                    //------------------------------------------------------
-
                     var startDateComponents = n.date.split("-");
-                    var startMonth = parseInt(startDateComponents[0]);
-                    var startDay = parseInt(startDateComponents[1]);
-                    var startYear = parseInt(startDateComponents[2]);
+                    var startYear = parseInt(startDateComponents[0]);
+                    var startMonth = parseInt(startDateComponents[1]);
+                    var startDay = parseInt(startDateComponents[2]);
 
                     if ($scope.startingDate.getFullYear() < startYear) {
                         return n;
@@ -190,7 +328,7 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive'/*, '
                     }
                     else if (($scope.startingDate.getMonth() + 1) == startMonth && $scope.startingDate.getDate() <= startDay) {
                         return n;
-                   }
+                    }
                 });
             }
 
@@ -198,16 +336,10 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive'/*, '
             if ($scope.endingDateChange && $scope.endingDate != undefined) {
                 allMarkers = _.filter(allMarkers, function (n) {
 
-                    //---------------------Test-----------------------------
-                    if (n.date == undefined)
-                        n.date = "07-0" + count + "-2016";
-                    count++;
-                    //------------------------------------------------------
-
                     var endDateComponents = n.date.split("-");
-                    var endMonth = parseInt(endDateComponents[0]);
-                    var endDay = parseInt(endDateComponents[1]);
-                    var endYear = parseInt(endDateComponents[2]);
+                    var endYear = parseInt(endDateComponents[0]);
+                    var endMonth = parseInt(endDateComponents[1]);
+                    var endDay = parseInt(endDateComponents[2]);
 
                     if ($scope.endingDate.getFullYear() > endYear) {
                         return n;
@@ -325,8 +457,46 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive'/*, '
         //init myMap for control of map refresh and default position.
         vm.mapVisible = false;
         vm.legendVisible = false;
+        vm.mainPage = true;
+        vm.reportExtended = false;
+
+        //scrollable style
+        vm.reportPanel = {
+            "height": "100vh",
+            "width": "50%",
+            "position": "inherit",
+            "padding-left": "10px",
+            "padding-right": "0px",
+            "z-index" : "1000"
+        };
 
         //SCOPE FUNCTIONS
+        // changes the size of the map to show and hide the map.
+        vm.changeReportSize = function(){
+            vm.reportExtended = !vm.reportExtended;
+            if(vm.reportExtended){
+                vm.reportPanel.width = "100%";
+            }else{
+                vm.reportPanel.width = "50%";
+            }
+        };
+
+        //A change background function used to switch backgrounds between homepage and tabs.
+        vm.changeBackground = function(section){
+            if(section=="home"){
+                vm.mainPage = true;
+                //Be sure to clear all prior classes. There is one class built into angular on the body tag that needs to stay, so you can't remove all.
+                if(angular.element("#homepage").hasClass("tab-background"))
+                    angular.element("#homepage").removeClass("tab-background");
+                angular.element("#homepage").addClass("homepage");
+            } else if(section=="tab") {
+                vm.mainPage = false;
+                if(angular.element("#homepage").hasClass("homepage"))
+                    angular.element("#homepage").removeClass("homepage");
+                angular.element("#homepage").addClass("tab-background");
+            }
+        };
+
         vm.setMapVisible = function(visible){
             vm.mapVisible = visible;
         };
@@ -344,6 +514,7 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive'/*, '
         };
 
         vm.setCurrentCountry = function(country){
+            setTimeout(vm.triggerMapLoad, 75);
             vm.currentCountry = country;
             vm.currentReport = null;
             //set the map visibility whenever a country is selected, so that it can be refreshed.
@@ -351,6 +522,11 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive'/*, '
             vm.setMapVisible(country !== null);
             vm.setLegendVisible(country  !== null);
         };
+
+        vm.triggerMapLoad = function(country) {
+            window.dispatchEvent(new Event('resize'));
+        };
+
 
         vm.isCurrentReport = function(report){
             return vm.currentReport !== null && report.id === vm.currentReport.id;
