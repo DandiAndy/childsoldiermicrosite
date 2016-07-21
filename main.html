@@ -130,22 +130,19 @@
                                                 <span style="background:#666666;"></span>
                                                 Other
                                             </li>
-                                            <li>
-                                                <div class="legend-title">Incidents Date Filter</div>
-                                                <form name="dateForm">
-                                                    <label for="startingInput">Starting Date:</label>
-                                                    <input type="date" id="startingInput" name="startingInput" ng-model="startingInput.value"
-                                                           placeholder="yyyy-MM-dd"/>
-                                                    <br/>
-                                                    <br/>
-                                                    <label for="endingInput">Ending Date:</label>
-                                                    <input type="date" id="endingInput" name="endingInput" ng-model="endingInput.value"
-                                                           placeholder="yyyy-MM-dd"/>
-                                                    <p id="errorMessage"> </p>
-                                                </form>
-                                            </li>
                                         </ul>
                                     </div>
+                                    <div class="legend-title"> Filter by Date: </div>
+                                    <form>
+                                        <md-content>
+                                            <label class="dateLabel">Starting Date:</label>
+                                            <md-datepicker ng-model="startingInput.value" md-placeholder="mm/dd/yyyy"></md-datepicker>
+                                            <label class="dateLabel">Ending Date:</label>
+                                            <md-datepicker ng-model="endingInput.value" md-placeholder="mm/dd/yyyy"></md-datepicker>
+                                        </md-content>
+                                        <br/>
+                                        <p id="errorMessage"> </p>
+                                    </form>
                                 </div>
                             </div>
                             <leaflet class="map col-xs-11" center="country" markers="markers"></leaflet>
