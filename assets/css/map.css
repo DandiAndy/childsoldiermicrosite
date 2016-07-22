@@ -10,12 +10,12 @@
 }
 
 .map_panel {
-    height: 40px;
-    width: 80px;
+    height: 30px;
+    width: 60px;
     padding: 0;
     position: fixed;
     top: 5%;
-    left: 90%;
+    right: 5%;
     -webkit-box-shadow: 3px 3px 3px #666666;
     -moz-box-shadow: 3px 3px 3px #666666;
     box-shadow: 3px 3px 3px #666666;
@@ -25,8 +25,8 @@
 }
 
 .filter_btn {
-    height: 40px;
-    width: 40px;
+    height: 30px;
+    width: 30px;
     position: relative;
     padding: 0;
     content: url(../img/filter_icon.png);
@@ -46,8 +46,8 @@
 }
 
 .hide_btn {
-    height: 40px;
-    width: 40px;
+    height: 30px;
+    width: 30px;
     position: relative;
     padding: 0;
     content: url(../img/show_icon.png);
