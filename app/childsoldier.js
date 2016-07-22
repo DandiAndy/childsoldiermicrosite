@@ -1,6 +1,7 @@
 var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive', 'ngMaterial']);
 
     app.controller('MapCtrl', ['$scope', 'MapService', function($scope, MapService){
+        
         //VARIABLES
         $scope.maps = null;
         $scope.currentMap = null;
@@ -65,6 +66,10 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive', 'ng
         // Date Variables/Flags
         $scope.startingDate = new Date();
         $scope.endingDate = new Date();
+
+        // Set beginnging dates arbitrarily low/high.
+        $scope.startingDate.setDate("January 1, 1800");
+        $scope.endingDate.setDate("January 1, 2800");
 
         $scope.startingDateChange = false;
         $scope.endingDateChange = false;
@@ -221,104 +226,146 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive', 'ng
             $scope.showFilter = !$scope.showFilter;
         };
 
-        // watches for changes in starting date and updates markers
+        // Watches for changes in the Starting Date filter and updates the markers accordingly.
         $scope.$watch('startingInput.value', function(newVal) {
+            
+            // Checks for the value coming in to be an actual value.
             if (newVal != undefined) {
+                
+                // If so, log the change, and clear the 'filter clear' message if a clear has been done recently.
                 console.log('Change in Starting Date: ' + newVal);
+                document.getElementById("startDateClearMessage").innerHTML = ("");
+                
+                // Set starting date to new date value, and set the date change flag to true for filter function. 
                 $scope.startingDate = newVal;
                 $scope.startingDateChange = true;
+                
                 // Check for invalid date, if so display error message, or clear the error message if now valid.
-                if ($scope.startingDate.getFullYear() > $scope.endingDate.getFullYear()) {
-                    document.getElementById("errorMessage").innerHTML = ("Error: starting date is later than ending date.");
+                if ($scope.endingDate != undefined) {
+                    if ($scope.startingDate.getFullYear() > $scope.endingDate.getFullYear()) {
+                        document.getElementById("errorMessage").innerHTML = ("Error: starting date is later than ending date.");
+                    }
+                    else if ($scope.startingDate.getFullYear() == $scope.endingDate.getFullYear() && ($scope.startingDate.getMonth() + 1) > ($scope.endingDate.getMonth() + 1)) {
+                        document.getElementById("errorMessage").innerHTML = ("Error: starting date is later than ending date.");
+                    }
+                    else if (($scope.startingDate.getMonth() + 1) == ($scope.endingDate.getMonth() + 1) && $scope.startingDate.getDate() > $scope.endingDate.getDate()) {
+                        document.getElementById("errorMessage").innerHTML = ("Error: starting date is later than ending date.");
+                    }
+                    else {
+                        document.getElementById("errorMessage").innerHTML = (" ");
+                    }
                 }
-                else if ($scope.startingDate.getFullYear() == $scope.endingDate.getFullYear() && ($scope.startingDate.getMonth() + 1) > ($scope.endingDate.getMonth() + 1)) {
-                    document.getElementById("errorMessage").innerHTML = ("Error: starting date is later than ending date.");
-                }
-                else if (($scope.startingDate.getMonth() + 1) == ($scope.endingDate.getMonth() + 1) && $scope.startingDate.getDate() > $scope.endingDate.getDate()) {
-                    document.getElementById("errorMessage").innerHTML = ("Error: starting date is later than ending date.");
-                }
-                else {
-                    document.getElementById("errorMessage").innerHTML = (" ");
-                }
+                
+                // Call for the filtering function.
                 $scope.changeMarkerFilter();
             }
         });
 
-        // watches for changes in ending date and updates markers
+        // Watches for changes in the Ending Date filter and updates the markers accourdingly.
         $scope.$watch('endingInput.value', function(newVal) {
+            
+            // Checks for the value coming in to be an actual value.
             if (newVal != undefined) {
+                
+                // If so, log the change, and clear the 'filter clear' message if a clear has been done recently.
                 console.log('Change in Ending Date: ' + newVal);
+                document.getElementById("endDateClearMessage").innerHTML = ("");
+                
+                // Set starting date to new date value, and set the date change flag to true for filter function.
                 $scope.endingDate = newVal;
                 $scope.endingDateChange = true;
+                
                 // Check for invalid date, if so display error message, or clear the error message if now valid.
-                if ($scope.startingDate.getFullYear() > $scope.endingDate.getFullYear() && startingDate !=null) {
-                    document.getElementById("errorMessage").innerHTML = ("Error: starting date is later than ending date.");
+                if ($scope.startingDate != undefined) {
+                    if ($scope.startingDate.getFullYear() > $scope.endingDate.getFullYear() && startingDate != null) {
+                        document.getElementById("errorMessage").innerHTML = ("Error: starting date is later than ending date.");
+                    }
+                    else if ($scope.startingDate.getFullYear() == $scope.endingDate.getFullYear() && ($scope.startingDate.getMonth() + 1) > ($scope.endingDate.getMonth() + 1) && $scope.startingDate != null) {
+                        document.getElementById("errorMessage").innerHTML = ("Error: starting date is later than ending date.");
+                    }
+                    else if (($scope.startingDate.getMonth() + 1) == ($scope.endingDate.getMonth() + 1) && $scope.startingDate.getDate() > $scope.endingDate.getDate() && $scope.startingDate != null) {
+                        document.getElementById("errorMessage").innerHTML = ("Error: starting date is later than ending date.");
+                    }
+                    else {
+                        document.getElementById("errorMessage").innerHTML = (" ");
+                    }
                 }
-                else if ($scope.startingDate.getFullYear() == $scope.endingDate.getFullYear() && ($scope.startingDate.getMonth() + 1) > ($scope.endingDate.getMonth() + 1) && $scope.startingDate !=null) {
-                    document.getElementById("errorMessage").innerHTML = ("Error: starting date is later than ending date.");
-                }
-                else if (($scope.startingDate.getMonth() + 1) == ($scope.endingDate.getMonth() + 1) && $scope.startingDate.getDate() > $scope.endingDate.getDate() && $scope.startingDate !=null) {
-                    document.getElementById("errorMessage").innerHTML = ("Error: starting date is later than ending date.");
-                }
-                else {
-                    document.getElementById("errorMessage").innerHTML = (" ");
-                }
+                
+                // Call the filtering function.
                 $scope.changeMarkerFilter();
             }
         });
+
+        // Clears the starting date on button press.
+        $scope.clearStartingDate = function() {
+            // Set date to undefined, call filter, and display filter change message.
+            $scope.startingDate = undefined;
+            $scope.changeMarkerFilter();
+            document.getElementById("startDateClearMessage").innerHTML = ("Start Date Filter Cleared on Map.");
+        };
+
+        // Clears the ending date on button press.
+        $scope.clearEndingDate = function() {
+            // Set date to undefined, call filter, and display filter change message.
+            $scope.endingDate = undefined;
+            $scope.changeMarkerFilter();
+            document.getElementById("endDateClearMessage").innerHTML = ("End Date Filter Cleared on Map.");
+        };
         
-        //Changes the markers according to the current current filter.
+        // Changes the markers according to the current current filter.
         $scope.changeMarkerFilter = function() {
-            //copy the points to a new object
+            
+            // copy the points to a new object
             var allMarkers = jQuery.extend(true, {}, $scope.currentMap.points);
-            //filter murders. If not checked, set allMarkers to all points not containing 'murder_maiming' as a title
-
-
+            
+            // filter marker types.
             if (!$scope.checkBoxValues.murderMaimingFilter){
                 allMarkers = _.filter(allMarkers, function (n) {
                     return n.title !== 'murder_maiming';
                 });
             }
-            //filters recruitment
+            // recruitment
             if (!$scope.checkBoxValues.recruitmentFilter) {
                 allMarkers = _.filter(allMarkers, function (n) {
                     return n.title !== 'recruitment';
                 });
             }
-            //filters sexual violence
+            // sexual violence
             if (!$scope.checkBoxValues.sexualViolenceFilter) {
                 allMarkers = _.filter(allMarkers, function (n) {
                     return n.title !== 'sexual_violence';
                 });
             }
-            //filters attacks
+            // attacks
             if (!$scope.checkBoxValues.attacksFilter) {
                 allMarkers = _.filter(allMarkers, function (n) {
                     return n.title !== 'attack';
                 });
             }
-            //filters humanitarian denial
+            // humanitarian denial
             if (!$scope.checkBoxValues.humanitarianDenialFilter) {
                 allMarkers = _.filter(allMarkers, function (n) {
                     return n.title !== 'hum_denial';
                 });
             }
-            //filters abductions
+            // abductions
             if (!$scope.checkBoxValues.abductionFilter) {
                 allMarkers = _.filter(allMarkers, function (n) {
                     return n.title !== 'abduction';
                 });
             }
 
-            //filters based on starting date value.
+            // filters based on starting date value.
             if ($scope.startingDateChange && $scope.startingDate != undefined) {
                 allMarkers = _.filter(allMarkers, function (n) {
 
+                    // parsing of the date
                     var startDateComponents = n.date.split("-");
                     var startYear = parseInt(startDateComponents[0]);
                     var startMonth = parseInt(startDateComponents[1]);
                     var startDay = parseInt(startDateComponents[2]);
 
+                    // check to see which filters are before the input date, and filter them out (return valid points)
                     if ($scope.startingDate.getFullYear() < startYear) {
                         return n;
                     }
@@ -331,15 +378,17 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive', 'ng
                 });
             }
 
-            //filters based on ending date value.
+            // filters based on ending date value.
             if ($scope.endingDateChange && $scope.endingDate != undefined) {
                 allMarkers = _.filter(allMarkers, function (n) {
 
+                    // parsing of the date
                     var endDateComponents = n.date.split("-");
                     var endYear = parseInt(endDateComponents[0]);
                     var endMonth = parseInt(endDateComponents[1]);
                     var endDay = parseInt(endDateComponents[2]);
 
+                    // check to see which filters are after the input date, and filter them out (return valid points)
                     if ($scope.endingDate.getFullYear() > endYear) {
                         return n;
                     }
@@ -356,7 +405,7 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive', 'ng
             $scope.markers = $scope.appropriateObject(allMarkers);
         };
 
-        //Changes the objects from the given map to match leaflet marker requirements. We should consider changing he data in the db.
+        //Changes the objects from the given map to match leaflet marker requirements.
         $scope.appropriateObject = function(points) {
             console.log(points);
             for(var i = 0; i <= _.size(points); i++){
@@ -387,17 +436,18 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive', 'ng
                     points[markerName] = points[i];
                     delete points[i];
                 }
-
             }
             console.log(points);
             return points;
         };
 
+        // Watch for changes in filter by type.
         $scope.$watch('checkBoxValues', function() {
             if($scope.currentMap != null)
                 $scope.changeMarkerFilter();
         }, true);
 
+        // Promise to ensure app loads properly.
         $scope.promiseMap = function(){
             MapService.getMap()
                 .then(function(data) {
@@ -436,7 +486,6 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive', 'ng
 
 
     app.controller('MainCtrl', function ($scope, $timeout, $http) {
-
 
         var vm = this; // 'view model'; controller
 
@@ -496,6 +545,7 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive', 'ng
             }
         };
 
+        //Functions for switching between country tabs
         vm.setMapVisible = function(visible){
             vm.mapVisible = visible;
         };
@@ -539,7 +589,6 @@ var app = angular.module('ChildSoldier', ['ngSanitize', 'leaflet-directive', 'ng
             vm.legendVisible = visible;
         };
 
-        <!--CONSIDER REFACTORING INTO A PROMISE. This could do to fail more gracefully -->
         <!-- Retrieve information from API, update this path if neccesary in future -->
         $http.get('http://childsoldiers-api.herokuapp.com/countries/').success(function(data) {
             vm.countries = data;

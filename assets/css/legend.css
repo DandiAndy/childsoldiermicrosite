@@ -55,3 +55,11 @@
     color: red;
     font-size: 70%;
 }
+
+#startDateClearMessage {
+    font-size: 70%;
+}
+
+#endDateClearMessage {
+    font-size: 70%;
+}

@@ -19,7 +19,7 @@
         <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
     </head>
 
-    <!-- This is used for the nested sections -->
+    <!-- This is used for text report sections, displaying the report -->
     <script type="text/ng-template"  id="section_renderer">
         <div><a ng-click="selectSection(section)">{{section.title}}</a></div>
         <div ng-if="openSections.indexOf(section.id) != -1">
@@ -34,12 +34,14 @@
 
         <div class="container-fluid">
             <div class="row" ng-controller="MapCtrl">
-                <!--Fixed map panel allowing for map modification-->
+
+                <!--Map panel allowing for map modification-->
                 <div class="map_panel row" ng-hide="vm.mainPage">
                     <div class="hide_btn col-xs-6" ng-click="vm.changeReportSize()"></div>
                     <div class="filter_btn col-xs-6" ng-click="switchFilterVisible()"></div>
                 </div>
 
+                <!--Sidebar Navigation-->
                 <div class="col-sm-3 col-md-2 sidebar">
                     <a ng-click="vm.changeBackground('home'); vm.setCurrentCountry(null); setCurrentMap(null)"><img class="logo" src="assets/img/logo.png"></a>
                     <ul class="nav nav-sidebar">
@@ -50,13 +52,13 @@
                         </li>
                     </ul>
                     <img class="sidebar-footer" src="assets/img/dal_logo.png">
-
                 </div>
+
+                <!--Main page for when a country is selected-->
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-
-
                     <div class="row" ng-hide="vm.mainPage">
-                        <!-- TAB NAVIGATION -->
+
+                        <!-- Tab Navigation and Content -->
                         <div class="col-xs-6 row" ng-style="vm.reportPanel">
                             <div class="col-xs-11 scrollable">
                                 <h1 align="center"> {{vm.currentCountry.name}} </h1>
@@ -95,11 +97,11 @@
                             </div>
                         </div>
 
-                        <!--Div of the map, with the script that loads icon objects and adds them to the map-->
+                        <!--Div of the map, with the script that loads icon objects and adds them to the map, along with the map filter components-->
                         <div ng-show="vm.mapVisible" class="row col-xs-6 map_div">
                             <div class="panel panel-default col-xs-6 filter" ng-show="showFilter">
                                 <div class="legend-filter">
-                                    <div class="legend-title">Incidents Color legend</div>
+                                    <div class="legend-title">Filter by Type: </div>
                                     <div class="legend-scale panel-body">
                                         <ul class="legend-labels">
                                             <li>
@@ -107,7 +109,7 @@
                                                     <button id="hotspot_1" class="btn btn-primary btn-xs"  ng-click="filterHotspots(1)">
                                                         <img src="assets/img/murder_maiming_legend.png" alt="Killing and Maiming Icon">
                                                     </button>
-                                                    Killing and Maiming of children
+                                                    Killing/Maiming of children
                                                 </p>
                                             </li>
                                             <li>
@@ -115,7 +117,7 @@
                                                     <button id="hotspot_2" class="btn btn-primary btn-xs"  ng-click="filterHotspots(2)">
                                                         <img src="assets/img/recruitment_legend.png" alt="Recruitment Icon">
                                                     </button>
-                                                    Recruitment or use of children as soldiers
+                                                    Recruitment/Use of child soldiers
                                                 </p>
                                             </li>
                                             <li>
@@ -140,7 +142,7 @@
                                                     <button id="hotspot_5" class="btn btn-primary btn-xs"  ng-click="filterHotspots(5)">
                                                         <img src="assets/img/hum_denial_legend.png" alt="Denial of Humanitarian Aid Icon">
                                                     </button>
-                                                    Denial of humanitarian access for children
+                                                    Denial of humanitarian access
                                                 </p>
                                             </li>
                                             <li>
@@ -164,10 +166,22 @@
                                     <div class="legend-title"> Filter by Date: </div>
                                     <form>
                                         <md-content>
-                                            <label class="dateLabel">Starting Date:</label>
+                                            <label class="dateLabel">Starting Date</label>
+                                            <br/>
                                             <md-datepicker ng-model="startingInput.value" md-placeholder="mm/dd/yyyy"></md-datepicker>
-                                            <label class="dateLabel">Ending Date:</label>
+                                            <md-button class="md-icon-button md-primary" aria-label="Clear Date" ng-click="clearStartingDate()">
+                                                <img class="png-icon" src="assets/img/clear_button.png" style="width: 12px; height: 12px;">
+                                            </md-button>
+                                            <br/>
+                                            <p id="startDateClearMessage"> </p>
+                                            <label class="dateLabel">Ending Date</label>
+                                            <br/>
                                             <md-datepicker ng-model="endingInput.value" md-placeholder="mm/dd/yyyy"></md-datepicker>
+                                            <md-button class="md-icon-button md-primary" aria-label="Clear Date" ng-click="clearEndingDate()">
+                                                <img class="png-icon" src="assets/img/clear_button.png" style="width: 12px; height: 12px;">
+                                            </md-button>
+                                            <br/>
+                                            <p id="endDateClearMessage"> </p>
                                         </md-content>
                                         <br/>
                                         <p id="errorMessage"> </p>
