@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c6e17df1-c667-4a35-bc95-e56888b7783f" name="Default" comment="Andrew: Added comments to main.html and added comments to the childsoldier script.">
+    <list default="true" id="c6e17df1-c667-4a35-bc95-e56888b7783f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/childsoldier.js" afterPath="$PROJECT_DIR$/app/childsoldier.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/css/legend.css" afterPath="$PROJECT_DIR$/assets/css/legend.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/css/map.css" afterPath="$PROJECT_DIR$/assets/css/map.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.html" afterPath="$PROJECT_DIR$/main.html" />
     </list>
     <list id="cb23732a-771a-43ac-bd88-0ef649b9c9c5" name="Rejected commit: Default" comment="Loai: Update the legend color + edit the childsoldiers.js to work with the legend to show with the map." />
     <ignored path=".idea/" />
@@ -40,21 +36,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="childsoldier.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="childsoldier.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/childsoldier.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
+            <state relative-caret-position="132">
+              <caret line="74" column="30" selection-start-line="74" selection-start-column="30" selection-end-line="74" selection-end-column="30" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" column="57" selection-start-line="16" selection-start-column="57" selection-end-line="16" selection-end-column="57" />
+            <state relative-caret-position="354">
+              <caret line="74" column="113" selection-start-line="74" selection-start-column="113" selection-end-line="74" selection-end-column="113" />
               <folding>
                 <element signature="n#style#0;n#img#0;n#md-button#0;n#md-content#0;n#form#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#md-button#1;n#md-content#0;n#form#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -345,7 +341,7 @@
       <workItem from="1468983770733" duration="13228000" />
       <workItem from="1469022335791" duration="4204000" />
       <workItem from="1469112088154" duration="11386000" />
-      <workItem from="1469152434973" duration="6983000" />
+      <workItem from="1469152434973" duration="7173000" />
     </task>
     <task id="LOCAL-00001" summary="Andrew: Changing filters to work properly in a simple way.">
       <created>1467735834822</created>
@@ -417,11 +413,18 @@
       <option name="project" value="LOCAL" />
       <updated>1469126369733</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Andrew: Added comments to main.html and added comments to the childsoldier script.">
+      <created>1469159438635</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1469159438635</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="183221000" />
+    <option name="totallyTimeSpent" value="183411000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
@@ -883,17 +886,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="57" selection-start-line="16" selection-start-column="57" selection-end-line="16" selection-end-column="57" />
-          <folding>
-            <element signature="n#style#0;n#img#0;n#md-button#0;n#md-content#0;n#form#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#md-button#1;n#md-content#0;n#form#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/css/map.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -912,9 +904,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/childsoldier.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
+        <state relative-caret-position="132">
+          <caret line="74" column="30" selection-start-line="74" selection-start-column="30" selection-end-line="74" selection-end-column="30" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="354">
+          <caret line="74" column="113" selection-start-line="74" selection-start-column="113" selection-end-line="74" selection-end-column="113" />
+          <folding>
+            <element signature="n#style#0;n#img#0;n#md-button#0;n#md-content#0;n#form#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#md-button#1;n#md-content#0;n#form#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
